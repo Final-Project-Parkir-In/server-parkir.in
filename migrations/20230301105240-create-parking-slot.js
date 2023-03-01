@@ -18,6 +18,14 @@ module.exports = {
       priceOfSpot: {
         type: Sequelize.INTEGER
       },
+      MallId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Malls',
+          key: 'id',
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

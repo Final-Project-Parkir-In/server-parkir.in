@@ -9,13 +9,48 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Cars, {
+        foreignKey: "UserId",
+      });
     }
   }
   User.init(
     {
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      CardId: DataTypes.INTEGER,
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `email is required`,
+          },
+          notEmpty: {
+            msg: `email is required`,
+          },
+          isEmail: {
+            msg: `Email is not valid`,
+          },
+        },
+        unique: {
+          args: true,
+          msg: "Email address already in use!",
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `password is required`,
+          },
+          notEmpty: {
+            msg: `password is required`,
+          },
+          len: {
+            args: [5, Infinity],
+            msg: "Minimum 5 characters required in password",
+          },
+        },
+      },
       lat: DataTypes.STRING,
       long: DataTypes.STRING,
     },
