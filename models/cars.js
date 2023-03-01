@@ -11,12 +11,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Cars.belongsTo(models.User, {
+        foreignKey: "UserId",
+      });
     }
   }
   Cars.init({
-    numberPlate: DataTypes.STRING,
+    numberPlate:  {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        name: true,
+        msg: "plat is already on list",
+      },
+      validate: {
+        notNull: {
+          msg: "plat is required",
+        },
+        notEmpty: {
+          msg: "plat is required",
+        },
+      },
+    },
     brand: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Cars',

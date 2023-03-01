@@ -11,16 +11,10 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
-      },
-      CarId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Cars',
-          key: 'id',
-        },
       },
       lat: {
         type: Sequelize.STRING,

@@ -21,14 +21,6 @@ module.exports = {
       lat: {
         type: Sequelize.STRING,
       },
-      ParkingSlotId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'ParkingSlots',
-          key: 'id',
-        },
-      },
       imgUrl: {
         type: Sequelize.STRING,
       },

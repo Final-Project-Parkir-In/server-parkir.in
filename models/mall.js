@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Mall.hasMany(models.ParkingSlot, {foreignKey: "MallId"})
     }
   }
   Mall.init(
@@ -17,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       long: DataTypes.STRING,
       lat: DataTypes.STRING,
-      ParkingSlotId: DataTypes.INTEGER,
       imgUrl: DataTypes.STRING,
     },
     {
