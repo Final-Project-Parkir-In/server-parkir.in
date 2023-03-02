@@ -34,9 +34,19 @@ class ControllerUser {
     }
   }
 
+
   static async register(req, res, next) {
     try {
-    } catch (error) {}
+      let { username, password } = req.body;
+      let user = await User.create({
+        username,
+        password
+      });
+      res.status(201).json(user);
+    } catch (error) {
+      next(error);
+    }
   }
+
 }
 module.exports = ControllerUser;
