@@ -36,9 +36,14 @@ class Controller {
 
     static async register(req, res, next) {
         try {
-            
+            let { username, password } = req.body;
+            let user = await User.create({
+                username,
+                password
+            });
+            res.status(201).json(user);
         } catch (error) {
-            
+            next(error);
         }
     }
 }
