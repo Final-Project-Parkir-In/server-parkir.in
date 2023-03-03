@@ -1,11 +1,11 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const routes = require('./routes');
-const { errorHandler } = require('./middleware/errorhandler');
+const cors = require("cors");
+const routes = require("./routes");
+const { errorHandler } = require("./middleware/errorhandler");
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
@@ -15,5 +15,7 @@ app.use(routes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log('Server listening to the port', PORT);
+  console.log("Server listening to the port", PORT);
 });
+
+module.exports = app;

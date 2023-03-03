@@ -1,9 +1,10 @@
-const { comparePassword } = require('../helper/bcrypt');
-const { createToken } = require('../helper/jwt');
-const { User } = require('../models');
+const { comparePassword } = require("../helper/bcrypt");
+const { createToken } = require("../helper/jwt");
+const { User } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
+    console.log("Masuk Login");
     try {
       const { email, password } = req.body;
 
@@ -16,6 +17,7 @@ class ControllerUser {
       const validate = comparePassword(password, user.password);
 
       if (!validate) throw { name: 'InvalidCredentials' };
+
 
       const payload = {
         id: user.id,
@@ -30,12 +32,14 @@ class ControllerUser {
         email: payload.email,
       });
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
 
 
   static async register(req, res, next) {
+    console.log("Masuk");
     try {
       let { username, password } = req.body;
       let user = await User.create({
