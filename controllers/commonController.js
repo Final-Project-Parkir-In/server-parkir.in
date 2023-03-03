@@ -1,5 +1,8 @@
 var CronJob = require('cron/lib/job');
+const { task } = require('../cron/cron');
+const { initScheduledJobs } = require('../cron/cron');
 const { ParkingSlot, ParkingTransaction, User } = require('../models/index');
+var cron = require('node-cron');
 
 class Controller {
   static async bookingSpot(req, res, next) {
@@ -12,18 +15,22 @@ class Controller {
         UserId,
         ParkingId,
       });
-      var job = new CronJob(
-        '* * * * * *',
-        function() {
-          console.log('You will see this message every second');
-        },
-        null,
-        true,
-        'America/Los_Angeles'
-      );
-      job.start()
-
       
+      ///Function untuk menghitung mundur 1 jam setelah booking terbuat. Akan memeriksa carIn pada table booking, jika masih false setelah 1 jam (customer belum check-in) maka booking tersebut akan dihapus
+      cron.schedule('1 * * * * *', async () => {
+        console.log('cron run')
+        ///cek kondisi carin 
+        const customerCar = await ParkingTransaction.findByPk(booking.id)
+        if (!customerCar.carIn) {
+          await ParkingTransaction.destroy({
+            where: {
+              id: customerCar.id
+            }
+          })
+          console.log("succes deleting" + " " + booking.id)
+        }
+        console.log('gajadi hapus')
+      });
       res.status(201).json({ message: 'successfully booking spots' });
     } catch (err) {
       console.log(err)
@@ -44,23 +51,6 @@ class Controller {
     }
   }
 
-
-  static async booking(req, res, next) {
-    try {
-      ///cek slot
-
-      ///cek venue
-
-      //booking
-
-      //createBooking
-
-
-
-    } catch (error) {
-      
-    }
-  }
 }
 
 module.exports = Controller;
