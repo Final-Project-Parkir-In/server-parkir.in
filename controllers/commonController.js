@@ -1,4 +1,4 @@
-const CronJob = require('cron/lib/job');
+var CronJob = require('cron/lib/job');
 const { ParkingSlot, ParkingTransaction, User } = require('../models/index');
 
 class Controller {
@@ -12,14 +12,18 @@ class Controller {
         UserId,
         ParkingId,
       });
-      //// >>>> cron here
-      var job = new CronJob('* 10 * * * *', function () {
-        const d = new Date();
-        console.log('At Ten Minutes:', d);
-      });
-      
-      job.start();
+      var job = new CronJob(
+        '* * * * * *',
+        function() {
+          console.log('You will see this message every second');
+        },
+        null,
+        true,
+        'America/Los_Angeles'
+      );
+      job.start()
 
+      
       res.status(201).json({ message: 'successfully booking spots' });
     } catch (err) {
       console.log(err)
@@ -37,6 +41,24 @@ class Controller {
       console.log(foundUser)
     } catch (err) {
       res.status(500).json(err);
+    }
+  }
+
+
+  static async booking(req, res, next) {
+    try {
+      ///cek slot
+
+      ///cek venue
+
+      //booking
+
+      //createBooking
+
+
+
+    } catch (error) {
+      
     }
   }
 }
