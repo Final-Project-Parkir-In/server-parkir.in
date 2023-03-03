@@ -9,9 +9,6 @@ const { authetication } = require('../middleware/auth');
 const { initScheduledJobs } = require('../cron/cron');
 const routes = express.Router();
 
-
-
-
 routes.post("/login", ControllerUser.login);
 routes.post("/register", ControllerUser.register);
 // get all mals
@@ -24,6 +21,9 @@ routes.use(authetication)
 ///routes untuk user membooking parkir berdasarkan id parking spot
 routes.post('/bookings/:ParkingId', Controller.bookingSpot);
 routes.post('/checkIn/:id', Controller.checkIn);
+routes.get('/tickets', Controller.getAllTickets);
+
+
 
 
 module.exports = routes;

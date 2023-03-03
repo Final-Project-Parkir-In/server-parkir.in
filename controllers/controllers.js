@@ -4,7 +4,7 @@ const { User } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
-    console.log("Masuk Login");
+    // console.log("Masuk Login");
     try {
       const { email, password } = req.body;
 
@@ -41,9 +41,9 @@ class ControllerUser {
   static async register(req, res, next) {
     console.log("Masuk");
     try {
-      let { username, password } = req.body;
+      let { email, password } = req.body;
       let user = await User.create({
-        username,
+        email,
         password
       });
       res.status(201).json(user);

@@ -51,6 +51,16 @@ class Controller {
     }
   }
 
+
+  static async getAllTickets(req, res, next) {
+    try {
+      const data = await ParkingTransaction.findAll({ include: User})
+      res.status(200).json(data)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
 }
 
 module.exports = Controller;
