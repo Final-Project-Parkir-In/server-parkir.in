@@ -36,18 +36,23 @@ class ControllerUser {
     }
   }
 
+
   static async register(req, res, next) {
     console.log("Masuk");
     try {
-      const { email, password } = req.body;
-      const data = await User.create({ email, password });
-      res
-        .status(201)
-        .json({ email: data.email, message: `Succes add Customer` });
+      let { username, password } = req.body;
+      let user = await User.create({
+        username,
+        password
+      });
+      res.status(201).json(user);
     } catch (error) {
-      console.log(error, `DARI SERVER`);
       next(error);
     }
   }
+
 }
 module.exports = ControllerUser;
+
+
+///TEST MIGRATION REPO

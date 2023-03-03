@@ -2,22 +2,22 @@
     {
         "name": "PIM",
         "address": "Jakarta Selatan",
-        "long": "",
-        "lat": "",
+        "long": "-6.265670347012476",
+        "lat": "106.78272676099691",
         "imgUrl": "https://awsimages.detik.net.id/visual/2021/05/03/dok-pondok-indah-mall_169.jpeg?w=650"
     },
     {
         "name": "PIK Avenue",
         "address": "Jakarta Utara",
-        "long": "",
-        "lat": "",
+        "long": "-6.109192391408914",
+        "lat": "106.74035112660029",
         "imgUrl": "https://cdn2.pikavenue.com/wp-content/uploads/2020/11/1280px-PIK_Avenue_tampak_depan.jpg"
     },
     {
-        "name": "Ring Road City Walk Mall",
-        "address": "Medan",
-        "long": "",
-        "lat": "",
+        "name": "Gandaria City Mall",
+        "address": "Jakarta Selatan",
+        "long": "-6.244083204214093",
+        "lat": "106.78351827057534",
         "imgUrl": "https://ringroadcitywalks.com/home/images/slide/7.jpg"
     }
 ]
