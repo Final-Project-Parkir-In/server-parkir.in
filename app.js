@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(routes);
 // app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log("Server listening to the port", PORT);
-});
+// app.listen(PORT, () => {
+//   console.log("Server listening to the port", PORT);
+// });
 
 module.exports = app;

@@ -4,6 +4,7 @@ const { User } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
+    // console.log("Masuk Login");
     try {
       const { email, password } = req.body;
 
@@ -11,7 +12,7 @@ class ControllerUser {
         where: { email },
       });
 
-      if (!user) throw { name: "invalid_credentials" };
+      if (!user) throw { name: "invalid_credentials<<" };
 
       const validate = comparePassword(password, user.password);
 
@@ -30,14 +31,23 @@ class ControllerUser {
         email: payload.email,
       });
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       next(err);
     }
   }
 
   static async register(req, res, next) {
+    console.log("Masuk");
     try {
-    } catch (error) {}
+      const { email, password } = req.body;
+      const data = await User.create({ email, password });
+      res
+        .status(201)
+        .json({ email: data.email, message: `Succes add Customer` });
+    } catch (error) {
+      console.log(error, `DARI SERVER`);
+      next(error);
+    }
   }
 }
 module.exports = ControllerUser;

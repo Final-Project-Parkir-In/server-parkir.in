@@ -1,8 +1,8 @@
 const app = require("./app");
 const request = require("supertest");
 const bcrypt = require("bcryptjs");
-const { sequelize } = require("./models");
 const { createToken } = require("./helper/jwt");
+const { sequelize } = require("./models");
 const {
   Cars,
   Mall,
@@ -22,7 +22,14 @@ beforeAll(async () => {
       el.password = hash;
     });
 
+    let dataMall = require("./data/malls.json");
+    dataMall.forEach((el) => {
+      el.createdAt = new Date();
+      el.updatedAt = new Date();
+    });
+
     await sequelize.queryInterface.bulkInsert("Users", dataUser);
+    await sequelize.queryInterface.bulkInsert("Malls", dataMall);
 
     const user = await User.findOne({
       where: { email: "muhammad@gmail.com" },
@@ -33,7 +40,7 @@ beforeAll(async () => {
       email: user.email,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error, `<<<<<<<`);
   }
 });
 
@@ -43,9 +50,29 @@ afterAll(async () => {
     truncate: true,
     cascade: true,
   });
+  await Mall.destroy({
+    restartIdentity: true,
+    truncate: true,
+    cascade: true,
+  });
 });
 
 describe("Check", () => {
+  //Register
+  test("Register success", async () => {
+    const body = {
+      email: "glem633@mail.com",
+      password: "123456",
+    };
+    const response = await request(app).post("/register").send(body);
+    expect(response.status).toBe(201);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({
+      email: "glem633@mail.com",
+      message: "Succes add Customer",
+    });
+  });
+
   //Login
   test("Login success", async () => {
     const body = {
@@ -53,17 +80,24 @@ describe("Check", () => {
       password: "qwerty",
     };
     const response = await request(app).post("/login").send(body);
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(200);
     expect(response.body.email).toEqual("muhammad@gmail.com");
   });
 
-  //   test("Login failed password false", async () => {
-  //     const body = {
-  //       email: "yamin@gmail.com",
-  //       password: "qwert",
-  //     };
-  //     const response = await request(app).post("/login").send(body);
-  //     expect(response.status).toBe(200);
-  //     expect(response.body.email).toEqual("yamin@gmail.com");
-  //   });
+  //Read Mall
+  test("Read All Mall", async () => {
+    const response = await request(app).get(`/malls`);
+    expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Array || Object);
+  });
+
+  // test("Login failed password false", async () => {
+  //   const body = {
+  //     email: "yamin@gmail.com",
+  //     password: "qwer",
+  //   };
+  //   const response = await request(app).post("/login").send(body);
+  //   expect(response.status).toBe(401);
+  //   expect(response.body.email).toEqual("yamin@gmail.com");
+  // });
 });
