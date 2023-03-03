@@ -1,5 +1,5 @@
 var CronJob = require('cron/lib/job');
-const { ParkingSlot, ParkingTransaction, User } = require('../models/index');
+const { ParkingSlot, ParkingTransaction, User, Cars } = require('../models/index');
 
 class Controller {
   static async bookingSpot(req, res, next) {
@@ -12,16 +12,7 @@ class Controller {
         UserId,
         ParkingId,
       });
-      var job = new CronJob(
-        '* * * * * *',
-        function() {
-          console.log('You will see this message every second');
-        },
-        null,
-        true,
-        'America/Los_Angeles'
-      );
-      job.start()
+      
 
       
       res.status(201).json({ message: 'successfully booking spots' });
@@ -45,20 +36,13 @@ class Controller {
   }
 
 
-  static async booking(req, res, next) {
+  static async getAllTickets(req, res, next) {
     try {
-      ///cek slot
-
-      ///cek venue
-
-      //booking
-
-      //createBooking
-
-
-
+      const data = await ParkingTransaction.findAll({ include: User})
+      res.status(200).json(data)
     } catch (error) {
-      
+      console.log(error)
+      next(error)
     }
   }
 }
