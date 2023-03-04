@@ -14,7 +14,7 @@ async function authetication(req, res, next) {
             throw { name: "Unauthorized" };
         }
 
-        req.user = { id: dataUser.id, role: dataUser.role, name: dataUser.email };
+        req.user = { id: dataUser.id };
         next();
     } catch (error) {
         next(error);

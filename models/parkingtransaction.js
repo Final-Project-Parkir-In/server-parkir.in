@@ -15,19 +15,19 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  ParkingTransaction.init(
-    {
-      UserId: DataTypes.INTEGER,
-      ParkingId: DataTypes.INTEGER,
-      amountToPay: DataTypes.INTEGER,
-      dateBooking: DataTypes.DATE,
-      carIn: DataTypes.DATE,
-      carOut: DataTypes.DATE,
-    },
-    {
-      sequelize,
-      modelName: 'ParkingTransaction',
-    }
-  );
+  ParkingTransaction.init({
+    UserId: DataTypes.INTEGER,
+    ParkingId: DataTypes.INTEGER,
+    amountToPay: DataTypes.INTEGER,
+    carIn: DataTypes.DATE,
+    carOut: DataTypes.DATE,
+    isExpired: DataTypes.BOOLEAN
+  }, {
+    sequelize,
+    modelName: 'ParkingTransaction',
+  });
+  ParkingTransaction.beforeCreate((transaction) => {
+    transaction.isExpired = false
+  })
   return ParkingTransaction;
 };

@@ -28,14 +28,14 @@ module.exports = {
       amountToPay: {
         type: Sequelize.INTEGER,
       },
-      dateBooking: {
-        type: Sequelize.DATE,
-      },
       carIn: {
         type: Sequelize.DATE,
       },
       carOut: {
         type: Sequelize.DATE,
+      },
+      isExpired: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

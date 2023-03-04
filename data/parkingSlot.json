@@ -1,0 +1,80 @@
+[
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 1
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 1
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 1
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 1
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 1
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 2
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 2
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 2
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 2
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 3
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 3
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 3
+    },
+    {
+        "spot": "b-1",
+        "isAvailable": true,
+        "priceOfSpot": 10000,
+        "MallId": 3
+    }
+]
