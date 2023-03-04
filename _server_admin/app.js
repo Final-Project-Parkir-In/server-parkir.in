@@ -9,13 +9,11 @@ const { errorHandler } = require("./middlewares/errHandler");
 const router = require("./routes/admin");
 const app = express();
 const port = process.env.PORT || 3000;
-// const port = 3000;
 
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-console.log('masuk sini');
 app.use("/admin", router);
 
 app.use(errorHandler);

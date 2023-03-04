@@ -2,10 +2,9 @@
 // Namun karena di sini kita masih menggunakan CommonJS
 // Maka masih menggunakan require
 const { MongoClient } = require("mongodb");
-
+const uri = process.env.URI
 // Cara penulisan connectionString
 // [protocol]://[ipaddress]:[port]/?[options1=value1]&[options2=value2]&[...]
-const connectionString = "mongodb://127.0.0.1:27017";
 
 // Kita akan membuat sebuah global variable yang akan menahan database
 // Untuk mengetahui apakah database masih ada atau tidak
@@ -15,7 +14,7 @@ let db = null;
 
 // Fungsi untuk koneksi ke db
 const mongoConnect = async () => {
-    const client = new MongoClient(connectionString);
+    const client = new MongoClient(uri);
 
     try {
         // client.db("nama-database-yang-akan-digunakan")

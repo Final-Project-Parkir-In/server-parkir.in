@@ -16,6 +16,52 @@ class Admin {
         })
     }
 
+    static async findAll() {
+        return this.getCollections().find().toArray()
+    }
+
+    static async findByPk(objectId) {
+        return this.getCollections().findOne({
+            _id: new ObjectId(objectId),
+        })
+    }
+
+    static async deleteAdmin(id) {
+        return this.getCollections().deleteOne({
+            _id: new ObjectId(id)
+        })
+    }
+
+    static async update(find, data) {
+
+        const filter = { userName: find }; // find document(s) with firstName = 'John'
+        const update = {
+            $set: {
+                ...data,
+            password: hashPassword(data.password)
+            }
+        }; // update the lastName field to 'Doe'
+
+        const result = await this.getCollections().updateOne(filter, update);
+        return result
+    }
+     
+    // sandbox >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    static async sandbox(find, data) {
+        console.log(data.userName, '<<<< data update');
+
+        const filter = { userName: find }; // find document(s) with firstName = 'John'
+        const update = {
+            $set: {
+                userName: data.userName,
+                email: data.email,
+                password: data.password
+            }
+        }; // update the lastName field to 'Doe'
+
+        const result = await this.getCollections().updateOne(filter, update);
+        return result
+    }
 
 }
 
