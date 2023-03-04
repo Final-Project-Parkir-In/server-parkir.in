@@ -61,7 +61,7 @@ class Controller {
       const price = hours * transaction.ParkingSlot.priceOfSpot;
       console.log(price, 'ini harga yang harus di bayar');
 
-      // on production dont place the server key here
+      // on production dont place the server key he
       // dont forget add ":" in the end of the string
       const serverKey = 'SB-Mid-server-eYv4NQeO2ODjMM6ywHr_YFX9:';
       const base64Key = base64.encode(serverKey);
