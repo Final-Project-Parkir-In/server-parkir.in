@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ParkingTransaction extends Model {
     /**
@@ -11,19 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-    ParkingTransaction.belongsTo(models.User, {foreignKey: "UserId"})
+      ParkingTransaction.belongsTo(models.User, { foreignKey: "UserId" })
+      ParkingTransaction.hasOne(models.ParkingSlot, {
+        foreignKey: 'ParkingId',
+      });
     }
   }
-  ParkingTransaction.init({
-    UserId: DataTypes.INTEGER,
-    ParkingId: DataTypes.INTEGER,
-    amountToPay: DataTypes.INTEGER,
-    dateBooking: DataTypes.DATE,
-    carIn: DataTypes.DATE,
-    carOut: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'ParkingTransaction',
-  });
+  ParkingTransaction.init(
+    {
+      UserId: DataTypes.INTEGER,
+      ParkingId: DataTypes.INTEGER,
+      amountToPay: DataTypes.INTEGER,
+      dateBooking: DataTypes.DATE,
+      carIn: DataTypes.DATE,
+      carOut: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: 'ParkingTransaction',
+    }
+  );
   return ParkingTransaction;
 };

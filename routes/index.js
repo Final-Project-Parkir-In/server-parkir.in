@@ -2,6 +2,8 @@ const express = require("express");
 const ControllerUser = require("../controllers/controllers");
 
 
+const express = require('express');
+const ControllerUser = require('../controllers/controllers');
 const Controller = require('../controllers/commonController');
 const ControllerMall = require('../controllers/mallController');
 const ControllerSpot = require('../controllers/spotController');
@@ -25,5 +27,10 @@ routes.get('/tickets', Controller.getAllTickets);
 
 
 
+routes.get('/checkOut/:ParkingTransactionId', Controller.checkOut);
+routes.use(authetication);
+///routes untuk user membooking parkir berdasarkan id parking spot
+routes.post('/bookings/:ParkingId', Controller.bookingSpot);
+routes.post('/checkIn/:ParkingTransactionId', Controller.checkIn);
 
 module.exports = routes;
