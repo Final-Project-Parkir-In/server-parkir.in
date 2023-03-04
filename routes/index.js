@@ -1,12 +1,13 @@
 const express = require("express");
-const ControllerUser = require("../controllers/controllers");
+const ControllerUser = require("../controllers/userController");
 
 
+const { authetication } = require('../middleware/auth');
+const { initScheduledJobs } = require('../cron/cron');
 const Controller = require('../controllers/commonController');
 const ControllerMall = require('../controllers/mallController');
 const ControllerSpot = require('../controllers/spotController');
-const { authetication } = require('../middleware/auth');
-const { initScheduledJobs } = require('../cron/cron');
+const BookingController = require("../controllers/bookingController");
 const routes = express.Router();
 
 routes.post("/login", ControllerUser.login);
@@ -19,9 +20,10 @@ routes.get("/spots/:MallId", ControllerSpot.getAllSpots);
 
 routes.use(authetication)
 ///routes untuk user membooking parkir berdasarkan id parking spot
-routes.post('/bookings/:ParkingId', Controller.bookingSpot);
-routes.post('/checkIn/:id', Controller.checkIn);
+routes.post('/bookings/:ParkingId', BookingController.bookingSpot);
+routes.post('/checkIn/:ParkingTransactionId', BookingController.checkIn);
 routes.get('/tickets', Controller.getAllTickets);
+routes.get('/parkingSlot/:MallId', ControllerMall.getParkingSlots)
 
 
 
