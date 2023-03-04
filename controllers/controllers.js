@@ -11,8 +11,11 @@ class ControllerUser {
       const user = await User.findOne({
         where: { email },
       });
+      if (!email) throw { name: "email is required" };
 
-      if (!user) throw { name: "invalid_credentials<<" };
+      if (!password) throw { name: "Password is require" };
+
+      if (!user) throw { name: "Invalid Email or Password" }; // ini gw ubah supaya gk ambigu yak
 
       const validate = comparePassword(password, user.password);
 
@@ -36,23 +39,21 @@ class ControllerUser {
     }
   }
 
-
   static async register(req, res, next) {
-    console.log("Masuk");
+    // console.log("Masuk");
     try {
-      let { username, password } = req.body;
+      let { email, password } = req.body;
       let user = await User.create({
-        username,
-        password
+        email,
+        password,
       });
-      res.status(201).json(user);
+      res.status(201).json({ id: user.id, Email: user.email });
     } catch (error) {
+      console.log(error, `<<<`);
       next(error);
     }
   }
-
 }
 module.exports = ControllerUser;
-
 
 ///TEST MIGRATION REPO

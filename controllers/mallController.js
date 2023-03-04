@@ -1,4 +1,4 @@
-const { Mall } = require('../models/index.js');
+const { Mall } = require("../models/index.js");
 class ControllerMall {
   static async getAllMalls(req, res, next) {
     try {
