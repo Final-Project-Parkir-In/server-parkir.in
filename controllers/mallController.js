@@ -2,7 +2,6 @@ const { Mall, ParkingSlot } = require('../models/index.js');
 class ControllerMall {
   static async getAllMalls(req, res, next) {
     try {
-      console.log('masuk booking?');
       const allMall = await Mall.findAll();
       res.status(200).json(allMall);
     } catch (err) {

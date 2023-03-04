@@ -8,8 +8,6 @@
  *
  * update: Sat, 3 PM => User can do booking through this controller
  */
-
-const { initScheduledJobs } = require('../cron/cron');
 const {
   ParkingSlot,
   ParkingTransaction,
@@ -18,21 +16,14 @@ const {
 } = require('../models/index');
 var cron = require('node-cron');
 const parkingtransaction = require('../models/parkingtransaction');
+const { CronJob } = require('cron');
 
 class BookingController {
   static async bookingSpot(req, res, next) {
     try {
       const { ParkingId } = req.params;
       const { id: UserId } = req.user;
-      const { dateBooking } = req.body;
-
-      if (new Date(dateBooking) < new Date()) {
-        throw {
-          name: 'invalid_validation',
-          msg: 'Invalid date',
-        };
-      }
-      ///cek slot parking availability
+      //cek slot parking availability
       const checkSlot = await ParkingSlot.findOne({
         where: {
           id: ParkingId,
@@ -41,31 +32,29 @@ class BookingController {
       if (!checkSlot) {
         throw { msg: 'parking slot not found' };
       }
-      ///membuat transaksi
+      //membuat transaksi
       const ticket = await ParkingTransaction.create({
         UserId,
-        ParkingId,
-        dateBooking,
+        ParkingId
       });
-      //Function cron untuk menghitung mundur 1 jam setelah booking terbuat. Akan memeriksa carIn pada table booking, jika masih false setelah 1 jam (customer belum check-in) maka booking tersebut akan dihapus
-      cron.schedule('1 * * * * *', async () => {
-        console.log('enter the cron');
-        const { carIn } = await ParkingTransaction.findByPk(ticket.id);
-        if (!carIn) {
-          await ParkingTransaction.update(
-            {
-              isExpired: true,
-            },
-            {
-              where: {
-                id: ticket.id,
-              },
-            }
-          );
-          cron.stop();
-        }
+      // Function cron untuk menghitung mundur 1 jam setelah booking terbuat. Akan memeriksa carIn pada table booking, jika masih false setelah 1 jam (customer belum check-in) maka booking tersebut akan dihapus
+      cron.schedule('* * * * * *', async () => {
+        // const { carIn } = await ParkingTransaction.findByPk(ticket.id);
+        // if (!carIn) {
+        //   await ParkingTransaction.update(
+        //     {
+        //       isExpired: true,
+        //     },
+        //     {
+        //       where: {
+        //         id: ticket.id,
+        //       },
+        //     }
+        //   );
+        // }
+        console.log('cron running')
       });
-      //cron end
+      // cron end
       res.status(201).json({ message: 'successfully booking spots' });
     } catch (err) {
       console.log(err);

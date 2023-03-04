@@ -10,6 +10,7 @@ var cron = require('node-cron');
 const parkingtransaction = require('../models/parkingtransaction');
 
 class Controller {
+  //constroller untuk melakukan checkin dengan mengupdate data car in dengan waktu saat checkin
   static async checkIn(req, res, next) {
     try {
       const { ParkingTransactionId } = req.params;
@@ -32,9 +33,15 @@ class Controller {
     }
   }
 
+
+  ///controller untuk mendapatkan ticket sesuai dengan user yang sedang login
   static async getAllTickets(req, res, next) {
     try {
+      const UserId = req.user.id
       const data = await ParkingTransaction.findAll({
+        where: {
+          UserId
+        },
         include: [{ model: User, include: [Cars] }],
       });
       res.status(200).json(data);
@@ -43,6 +50,9 @@ class Controller {
       next(error);
     }
   }
+
+
+
   static async checkOut(req, res, next) {
     try {
       // on production dont place the server key he
