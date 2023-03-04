@@ -14,6 +14,7 @@ class Controller {
         UserId,
         ParkingId,
       });
+      // fix conflict
 
       res.status(201).json({ message: 'successfully booking spots' });
     } catch (err) {
