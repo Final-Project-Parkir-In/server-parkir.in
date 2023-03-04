@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ParkingTransaction extends Model {
     /**
@@ -9,25 +9,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ParkingTransaction.belongsTo(models.User, { foreignKey: "UserId" })
+      ParkingTransaction.belongsTo(models.User, { foreignKey: "UserId" });
       ParkingTransaction.hasOne(models.ParkingSlot, {
-        foreignKey: 'ParkingId',
+        foreignKey: "ParkingId",
       });
     }
   }
-  ParkingTransaction.init({
-    UserId: DataTypes.INTEGER,
-    ParkingId: DataTypes.INTEGER,
-    amountToPay: DataTypes.INTEGER,
-    carIn: DataTypes.DATE,
-    carOut: DataTypes.DATE,
-    isExpired: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'ParkingTransaction',
-  });
+  ParkingTransaction.init(
+    {
+      UserId: DataTypes.INTEGER,
+      ParkingId: DataTypes.INTEGER,
+      amountToPay: DataTypes.INTEGER,
+      carIn: DataTypes.DATE,
+      carOut: DataTypes.DATE,
+      isExpired: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "ParkingTransaction",
+    }
+  );
   ParkingTransaction.beforeCreate((transaction) => {
-    transaction.isExpired = false
-  })
+    transaction.isExpired = false;
+  });
   return ParkingTransaction;
 };

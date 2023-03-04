@@ -1,6 +1,7 @@
 {
   "name": "server-iproject",
   "version": "1.0.0",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "jest --runInBand --forceExit",
@@ -34,7 +35,7 @@
     "supertest": "^6.3.3"
   },
   "devDependencies": {
+    "nodemon": "^2.0.21",
     "sequelize-cli": "^6.6.0"
-  },
-  "description": ""
+  }
 }

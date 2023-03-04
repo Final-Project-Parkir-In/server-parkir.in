@@ -7,18 +7,25 @@ class ControllerUser {
     // console.log("Masuk Login");
     try {
       const { email, password } = req.body;
+
       const user = await User.findOne({
         where: { email },
       });
-      if (!user) throw { name: "InvalidCredentials" };
+
+      if (!user) throw { name: "invalid_credentials<<" };
+
       const validate = comparePassword(password, user.password);
-      if (!validate) throw { name: "InvalidCredentials" };
+
+      if (!validate) throw { name: "invalid_credentials" };
+
       const payload = {
         id: user.id,
         username: user.username,
         email: user.email,
       };
+
       const access_token = createToken(payload);
+
       res.status(200).json({
         access_token,
         email: payload.email,
@@ -30,10 +37,11 @@ class ControllerUser {
   }
 
   static async register(req, res, next) {
+    console.log("Masuk");
     try {
-      let { email, password } = req.body;
+      let { username, password } = req.body;
       let user = await User.create({
-        email,
+        username,
         password,
       });
       res.status(201).json(user);

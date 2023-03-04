@@ -1,5 +1,8 @@
 "use strict";
+<<<<<<< HEAD
 const { hash } = require("bcryptjs");
+=======
+>>>>>>> testing2HotFix
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -13,8 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Cars, {
         foreignKey: "UserId",
       });
+<<<<<<< HEAD
       User.hasMany(models.ParkingTransaction, { foreignKey: "UserId" });
     }
+=======
+      User.belongsTo(models.ParkingTransaction, { foreignKey: "id" });
+    } // tambahan
+>>>>>>> testing2HotFix
   }
   User.init(
     {
