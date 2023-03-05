@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       numberPlate: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       brand: {
         type: Sequelize.STRING
@@ -24,6 +25,9 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+      },
+      isDefault: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

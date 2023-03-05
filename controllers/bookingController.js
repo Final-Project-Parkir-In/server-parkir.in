@@ -18,6 +18,8 @@ var cron = require('node-cron');
 const parkingtransaction = require('../models/parkingtransaction');
 const { CronJob } = require('cron');
 
+
+
 class BookingController {
   static async bookingSpot(req, res, next) {
     try {
@@ -38,23 +40,30 @@ class BookingController {
         ParkingId
       });
       // Function cron untuk menghitung mundur 1 jam setelah booking terbuat. Akan memeriksa carIn pada table booking, jika masih false setelah 1 jam (customer belum check-in) maka booking tersebut akan dihapus
-      cron.schedule('* * * * * *', async () => {
-        // const { carIn } = await ParkingTransaction.findByPk(ticket.id);
-        // if (!carIn) {
-        //   await ParkingTransaction.update(
-        //     {
-        //       isExpired: true,
-        //     },
-        //     {
-        //       where: {
-        //         id: ticket.id,
-        //       },
-        //     }
-        //   );
-        // }
-        console.log('cron running')
+
+      let counter = 0;
+
+      const task = cron.schedule('* 1 * * * *', () => {
+        counter++;
+        if (counter === 1) {
+          ParkingTransaction.update(
+            {
+              isExpired: true,
+            },
+            {
+              where: {
+                id: ticket.id,
+              },
+            }
+          );
+
+          console.log('running a task only once');
+          task.destroy(); // destroy the task after it runs once
+        }
       });
-      // cron end
+
+      task.start();
+
       res.status(201).json({ message: 'successfully booking spots' });
     } catch (err) {
       console.log(err);
@@ -65,7 +74,6 @@ class BookingController {
   static async checkIn(req, res, next) {
     try {
       const { ParkingTransactionId } = req.params;
-      ///check isexpire first
       const { isExpired } = await ParkingTransaction.findByPk(
         ParkingTransactionId
       );
@@ -73,6 +81,7 @@ class BookingController {
         res.status(400).json({
           message: 'Your ticket is already expired',
         });
+        return
       }
       await ParkingTransaction.update(
         {
