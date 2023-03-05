@@ -11,6 +11,7 @@ routes.post('/login', ControllerUser.login);
 routes.post('/register', ControllerUser.register);
 // get all mals
 routes.get('/malls', ControllerMall.getAllMalls);
+routes.get('/malls/:id', ControllerMall.getMallById);
 // get all user by mall id
 routes.get('/spots/:MallId', ControllerSpot.getAllSpots);
 // when user booking

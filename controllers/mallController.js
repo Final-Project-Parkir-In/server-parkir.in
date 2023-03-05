@@ -10,18 +10,31 @@ class ControllerMall {
     }
   }
 
+  static async getMallById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const mallDetail = await Mall.findOne({
+        where: {
+          id,
+        },
+      });
+      res.status(200).json(mallDetail);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 
   static async getParkingSlots(req, res, next) {
     try {
-      const {MallId} = req.params
+      const { MallId } = req.params;
       const data = await ParkingSlot.findAll({
         where: {
-          MallId
-        }
-      })
-      res.status(200).json(data)
+          MallId,
+        },
+      });
+      res.status(200).json(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

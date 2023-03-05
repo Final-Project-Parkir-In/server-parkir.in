@@ -118,13 +118,20 @@ class BookingController {
       // bandingkan waktu saat cek out dan cek in
       const checkInTime = new Date(transaction.carIn);
       const checkOutTime = new Date();
-      // console.log();
-      const diffInMs = checkOutTime - checkInTime; // Difference in milliseconds
+      const diffInMs = Math.ceil(
+        Math.abs(checkInTime.getTime() - checkOutTime.getTime()) / 3600000
+      ); // Difference in milliseconds
       // console.log(diffInMs);
       const hours = Math.ceil(diffInMs / (1000 * 60 * 60)); // Difference in hours
       //harga yang harus di bayar
       const price = hours * transaction.ParkingSlot.priceOfSpot;
-      console.log(price);
+      console.log(
+        price,
+        hours,
+        diffInMs,
+
+        'ini cui'
+      );
 
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
@@ -143,8 +150,8 @@ class BookingController {
             id: 'SPOT-ID-' + transaction.ParkingSlot.id,
             price: price,
             quantity: 1,
-            name: transaction.ParkingSlot.spot,
-            category: 'Clothes',
+            name: 'Parking slot at Pondok Indah',
+            category: 'spot parking',
             merchant_name: 'Merchant',
           },
         ],
