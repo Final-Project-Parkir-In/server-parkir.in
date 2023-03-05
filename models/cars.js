@@ -35,10 +35,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     brand: DataTypes.STRING,
     type: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    isDefault: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Cars',
   });
+  Cars.beforeCreate((car) => {
+    car.isDefault = false
+  })
   return Cars;
 };

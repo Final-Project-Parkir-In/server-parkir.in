@@ -1,6 +1,6 @@
 const { comparePassword } = require("../helper/bcrypt");
 const { createToken } = require("../helper/jwt");
-const { User } = require("../models");
+const { User, Cars } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
@@ -31,7 +31,6 @@ class ControllerUser {
         email: payload.email,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
@@ -39,14 +38,68 @@ class ControllerUser {
   static async register(req, res, next) {
     console.log("Masuk");
     try {
-      let { username, password } = req.body;
-      let user = await User.create({
-        username,
+      let { email, password } = req.body;
+      let dataUser = await User.create({
+        email,
         password,
       });
-      res.status(201).json(user);
+      res.status(201).json(dataUser);
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async getCars(req, res, next) {
+    try {
+      const UserId = req.user.id
+      let cars = await Cars.findAll({
+        where: {
+          UserId
+        }
+      })
+      res.status(200).json(cars)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async addCar(req, res, next) {
+    try {
+      const UserId = req.user.id
+      const { numberPlate, brand, type } = req.body
+      const car = await Cars.create(
+        {
+          UserId,
+          numberPlate,
+          brand,
+          type,
+          isDefault: true
+        },
+        {
+          hooks: false
+        }
+      )
+      res.status(201).json({ car, msg: "Car succefully created" })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async addSecondCar (req, res, next) {
+    try {
+      const UserId = req.user.id
+      const { numberPlate, brand, type } = req.body
+      const car = await Cars.create(
+        {
+          UserId,
+          numberPlate,
+          brand,
+          type,
+        }
+      )
+      res.status(201).json({ car, msg: "Car succefully created" })
+    } catch (error) {
+      next(error)
     }
   }
 }
