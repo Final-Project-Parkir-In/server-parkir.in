@@ -17,6 +17,7 @@ const {
   Cars,
 } = require('../models/index');
 var cron = require('node-cron');
+const base64 = require('base-64');
 const parkingtransaction = require('../models/parkingtransaction');
 
 class BookingController {
@@ -106,6 +107,32 @@ class BookingController {
 
   static async checkOut(req, res, next) {
     try {
+      const { ParkingTransactionId } = req.params;
+      // mendapatkan semua data transaction
+      const transaction = await ParkingTransaction.findOne({
+        where: {
+          id: ParkingTransactionId,
+        },
+        include: [ParkingSlot, User],
+      });
+      // bandingkan waktu saat cek out dan cek in
+      const checkInTime = new Date(transaction.carIn);
+      const checkOutTime = new Date();
+      const diffInMs = Math.ceil(
+        Math.abs(checkInTime.getTime() - checkOutTime.getTime()) / 3600000
+      ); // Difference in milliseconds
+      // console.log(diffInMs);
+      const hours = Math.ceil(diffInMs / (1000 * 60 * 60)); // Difference in hours
+      //harga yang harus di bayar
+      const price = hours * transaction.ParkingSlot.priceOfSpot;
+      console.log(
+        price,
+        hours,
+        diffInMs,
+
+        'ini cui'
+      );
+
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
       const serverKey = 'SB-Mid-server-eYv4NQeO2ODjMM6ywHr_YFX9:';
@@ -116,15 +143,15 @@ class BookingController {
       const data = {
         transaction_details: {
           order_id: orderID,
-          gross_amount: 20000,
+          gross_amount: price,
         },
         item_details: [
           {
-            id: 'PRODUCTID1',
-            price: 20000,
+            id: 'SPOT-ID-' + transaction.ParkingSlot.id,
+            price: price,
             quantity: 1,
-            name: 'spot 2',
-            category: 'Clothes',
+            name: 'Parking slot at Pondok Indah',
+            category: 'spot parking',
             merchant_name: 'Merchant',
           },
         ],
@@ -132,10 +159,9 @@ class BookingController {
           secure: true,
         },
         customer_details: {
-          first_name: 'budi',
-          last_name: 'pratama',
-          email: 'budi.pra@example.com',
-          phone: '08111222333',
+          name: transaction.User.name || 'Uhui',
+          email: transaction.User.email,
+          phone: transaction.User.phoneNumber || '0822981928',
         },
       };
       const response = await fetch(url, {
@@ -147,9 +173,12 @@ class BookingController {
         },
         body: JSON.stringify(data),
       });
-      res.status(200).json(response);
+      const redirToken = await response.json();
+      res.status(200).json(redirToken);
     } catch (err) {
-      next(err);
+      console.log(err);
+      res.status(500).json(err);
+      // next(err);
     }
   }
 }

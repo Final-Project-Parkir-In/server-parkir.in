@@ -1,10 +1,24 @@
-const { Mall, ParkingSlot } = require("../models/index.js");
+const { Mall, ParkingSlot } = require('../models/index.js');
 class ControllerMall {
   static async getAllMalls(req, res, next) {
     try {
-      console.log("masuk booking?");
+      console.log('masuk booking?');
       const allMall = await Mall.findAll();
       res.status(200).json(allMall);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async getMallById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const mallDetail = await Mall.findOne({
+        where: {
+          id,
+        },
+      });
+      res.status(200).json(mallDetail);
     } catch (err) {
       res.status(500).json(err);
     }

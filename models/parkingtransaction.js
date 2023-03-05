@@ -9,9 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+<<<<<<< HEAD
       ParkingTransaction.belongsTo(models.User, { foreignKey: "UserId" });
       ParkingTransaction.hasOne(models.ParkingSlot, {
         foreignKey: "ParkingId",
+=======
+      ParkingTransaction.belongsTo(models.User, { foreignKey: 'UserId' });
+      ParkingTransaction.belongsTo(models.ParkingSlot, {
+        foreignKey: 'ParkingId',
+>>>>>>> checkOut-upnormal
       });
     }
   }
@@ -26,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
+<<<<<<< HEAD
       modelName: "ParkingTransaction",
+=======
+      modelName: 'ParkingTransaction',
+>>>>>>> checkOut-upnormal
     }
   );
   ParkingTransaction.beforeCreate((transaction) => {
