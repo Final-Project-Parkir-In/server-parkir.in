@@ -8,6 +8,12 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === "BSONError") {
     status = 404;
     message = "Data not found";
+  }else if (err.name === "Data not found") {
+    status = 404;
+    message = "Data not found";
+  }else if (err.name === `invalid Username or Password`) {
+    status = 401;
+    message = `Invalid Username or Password`;
   } else if (err.name === 'BAD REQUEST') {
     status = 400;
     message = 'Please completed your input data!'
@@ -16,10 +22,9 @@ const errorHandler = (err, req, res, next) => {
     message = err.details.body?.map(el => {
       return el.message
     })
-  }
-  else if (err.name === 'MongoServerError') {
+  } else if (err.name === 'MongoServerError') {
     status = 400;
-    message = `${err.keyValue.email} is Allready used`
+    message = `Email is Allready used`
   }
 
   return res.status(status).json({ message });

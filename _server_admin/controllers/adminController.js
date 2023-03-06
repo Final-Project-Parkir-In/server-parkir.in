@@ -1,3 +1,4 @@
+const { comparePassword } = require("../helpers/bcrypt");
 const { Admin } = require("../models/admin")
 
 // sandbox requirement
@@ -6,16 +7,39 @@ const adminService = new AdminService()
 
 class Controller {
 
-    static async createAdmin(req, res, next) {
+    static async handleRegister(req, res, next) {
         try {
             const { userName, email, password } = req.body
             if (!userName || !email || !password) {
                 throw { name: `BAD REQUEST` }
             }
             await Admin.createAdmin({
-                userName, email, password 
+                userName, email, password
             })
             res.status(201).json({ message: `Successfully add ${userName} to new Admin` })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async handleLogin(req, res, next) {
+        try {
+            const { email, password } = req.body
+            console.log(req.body, '<<<< data input');
+            if (!email || !password) {
+                throw { name: `invalid Username or Password` }
+            } else {
+                const dataAdmin = await Admin.findByEmail(email)
+                if(!dataAdmin){
+                    throw { name : `invalid Username or Password`}
+                }
+                const passwordValidation = comparePassword(password, dataAdmin.password)
+                if(!passwordValidation){
+                    throw { name : `invalid Username or Password`}
+                }
+                console.log(passwordValidation, '<<<<< ketemu wan ? ');
+                res.status(200).json({message : `Succesfully to login`})
+            }
         } catch (err) {
             next(err)
         }

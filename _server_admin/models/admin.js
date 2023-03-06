@@ -25,7 +25,8 @@ class Admin {
     }
 
     static async findByEmail(email) {
-        return this.getCollections().findOne({ "email": { $ne: null } })
+        console.log(email, '<<<<< dari models');
+        return this.getCollections().findOne({ email: email })
 
     }
 
