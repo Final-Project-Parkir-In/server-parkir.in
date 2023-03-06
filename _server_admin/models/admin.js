@@ -17,7 +17,7 @@ class Admin {
         return this.getCollections().insertOne({
             ...admin,
             password: hashPassword(admin.password)
-        })
+        }) 
     }
 
     static async findAll() {

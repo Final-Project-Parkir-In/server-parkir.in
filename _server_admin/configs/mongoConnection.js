@@ -13,6 +13,7 @@ const uri = process.env.URI
 let db = null;
 
 // Fungsi untuk koneksi ke db
+
 const mongoConnect = async () => {
     const client = new MongoClient(uri);
 
@@ -31,7 +32,7 @@ const mongoConnect = async () => {
 };
 
 // Fungsi untuk mengambil db
-// Wajib dibuat, karena mongoConnect bersifat async
+// Wajib dibuat, karena mongoConnect bersifat async 
 // Jadi tidak diketahui kapan selesainya
 // (Itu juga alasannya kita menggunakan variable global "db")
 const getDatabase = () => db;
