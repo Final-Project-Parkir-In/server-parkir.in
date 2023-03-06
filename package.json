@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --runInBand --forceExit",
+    "test": "jest --coverage --runInBand --forceExit",
     "start": "node app.js"
   },
   "repository": {

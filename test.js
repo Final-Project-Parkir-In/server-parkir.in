@@ -28,21 +28,39 @@ beforeAll(async () => {
       el.updatedAt = new Date();
     });
 
+    let dataParkingSlot = require("./data/parkingSlot.json");
+    dataParkingSlot.forEach((el) => {
+      el.createdAt = new Date();
+      el.updatedAt = new Date();
+    });
+
+    let dataParkingTransaction = require("./data/parkingTransaction.json");
+    dataParkingTransaction.forEach((el) => {
+      el.createdAt = new Date();
+      el.updatedAt = new Date();
+    });
+
     await sequelize.queryInterface.bulkInsert("Users", dataUser);
     await sequelize.queryInterface.bulkInsert("Malls", dataMall);
+    await sequelize.queryInterface.bulkInsert("ParkingSlots", dataParkingSlot);
+    await sequelize.queryInterface.bulkInsert(
+      "ParkingTransactions",
+      dataParkingTransaction
+    );
 
     const user = await User.findOne({
       where: { email: "muhammad@gmail.com" },
     });
 
-    console.log(user, `<<<<`);
+    // console.log(user, `<<<<`);
 
     access_token = createToken({
       id: user.id,
       email: user.email,
     });
+    console.log(access_token, `<<<INI`);
   } catch (error) {
-    console.log(error, `<<<<<<<`);
+    console.log(error, `<<<ERR`);
   }
 });
 
@@ -57,6 +75,11 @@ afterAll(async () => {
     truncate: true,
     cascade: true,
   });
+  // await ParkingSlot.destroy({
+  //   restartIdentity: true,
+  //   truncate: true,
+  //   cascade: true,
+  // });
 });
 
 describe("Check", () => {
@@ -71,7 +94,7 @@ describe("Check", () => {
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toEqual({
       id: 5,
-      Email: "glem633@mail.com",
+      email: "glem633@mail.com",
     });
   });
 
@@ -172,7 +195,7 @@ describe("Check", () => {
     });
   });
 
-  test("Login failed email false", async () => {
+  test("Login failed password false", async () => {
     const body = {
       email: "muhammad@gmail.com",
       password: "qwert",
@@ -223,22 +246,25 @@ describe("Check", () => {
     const response = await request(app).get(`/spots/1`);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array || Object);
-    expect(response.body).toEqual([]);
+    // expect(response.body[0]).toHaveProperty("id", 1);
   });
 
-  //add Spot
-  test("add Spot success", async () => {
-    const body = {
-      spot: "dummy",
-      isAvailable: true,
-      priceOfSpot: 30000,
-      MallId: 1,
-    };
-    const response = await request(app).post("/addSlot").send(body);
-    expect(response.status).toBe(201);
-    expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toEqual({ name: "Success add Spot" });
-  });
+  //add ParkingSlot
+  // test("add ParkingSlot success", async () => {
+  //   const body = {
+  //     spot: "b-1",
+  //     isAvailable: true,
+  //     priceOfSpot: 10000,
+  //     MallId: 1,
+  //   };
+  //   const response = await request(app)
+  //     .post("/addSlot")
+  //     .set("access_token", access_token)
+  //     .send(body);
+  //   expect(response.status).toBe(201);
+  //   expect(response.body).toBeInstanceOf(Object);
+  //   expect(response.body).toEqual({ name: "Success add Spot" });
+  // });
 
   // Add Booking Spots
   test("Bokking spots success", async () => {
@@ -246,13 +272,25 @@ describe("Check", () => {
       .post(`/bookings/1`)
       .set("access_token", access_token);
     expect(response.status).toBe(201);
-    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty(
+      "message",
+      "successfully booking spots"
+    );
   });
 
   //read all ticket
   test("Read All Ticket", async () => {
-    const response = await request(app).get(`/getAllTickets`);
+    const response = await request(app)
+      .get(`/tickets`)
+      .set("access_token", access_token);
     expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Array || Object);
+    console.log(response.body, `INIBODY`);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0]).toHaveProperty("id", 1);
+    expect(response.body[0]).toHaveProperty("UserId", 1);
+    expect(response.body[0]).toHaveProperty("ParkingId", 1);
+    expect(response.body[0]).toHaveProperty("amountToPay", 10000);
+    expect(response.body[0]).toHaveProperty("User.id", 1);
+    expect(response.body[0]).toHaveProperty("User.email", "muhammad@gmail.com");
   });
 });

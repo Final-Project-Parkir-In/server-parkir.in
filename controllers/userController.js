@@ -8,11 +8,14 @@ class ControllerUser {
     try {
       const { email, password } = req.body;
 
+      if (!email) throw { name: "email is required" };
+      if (!password) throw { name: "Password is require" };
+
       const user = await User.findOne({
         where: { email },
       });
 
-      if (!user) throw { name: "invalid_credentials<<" };
+      if (!user) throw { name: "Invalid Email or Password" };
 
       const validate = comparePassword(password, user.password);
 
@@ -31,75 +34,75 @@ class ControllerUser {
         email: payload.email,
       });
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
 
   static async register(req, res, next) {
-    console.log("Masuk");
+    // console.log("Masuk");
+    let { email, password } = req.body; // ini di ubah aja ya pak sesuai database username jdi email
     try {
-      let { email, password } = req.body;
-      let dataUser = await User.create({
+      let user = await User.create({
         email,
         password,
       });
-      res.status(201).json(dataUser);
+      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
 
   static async getCars(req, res, next) {
     try {
-      const UserId = req.user.id
+      const UserId = req.user.id;
       let cars = await Cars.findAll({
         where: {
-          UserId
-        }
-      })
-      res.status(200).json(cars)
+          UserId,
+        },
+      });
+      res.status(200).json(cars);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
   static async addCar(req, res, next) {
     try {
-      const UserId = req.user.id
-      const { numberPlate, brand, type } = req.body
+      const UserId = req.user.id;
+      const { numberPlate, brand, type } = req.body;
       const car = await Cars.create(
         {
           UserId,
           numberPlate,
           brand,
           type,
-          isDefault: true
+          isDefault: true,
         },
         {
-          hooks: false
+          hooks: false,
         }
-      )
-      res.status(201).json({ car, msg: "Car succefully created" })
+      );
+      res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
-  static async addSecondCar (req, res, next) {
+  static async addSecondCar(req, res, next) {
     try {
-      const UserId = req.user.id
-      const { numberPlate, brand, type } = req.body
-      const car = await Cars.create(
-        {
-          UserId,
-          numberPlate,
-          brand,
-          type,
-        }
-      )
-      res.status(201).json({ car, msg: "Car succefully created" })
+      const UserId = req.user.id;
+      const { numberPlate, brand, type } = req.body;
+      const car = await Cars.create({
+        UserId,
+        numberPlate,
+        brand,
+        type,
+      });
+      res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

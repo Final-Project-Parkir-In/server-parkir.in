@@ -20,6 +20,9 @@ const errorHandler = (error, req, res, next) => {
   ) {
     status = 401;
     message = "Login First";
+  } else if (error.name === "Invalid Email or Password") {
+    status = 401;
+    message = "Invalid Email or Password"; // ini gw ubah supaya gk abigu
   } else if (error.name === "invalid_credentials") {
     status = 401;
     message = "Invalid Email or Password"; // ini gw ubah supaya gk abigu
@@ -30,10 +33,6 @@ const errorHandler = (error, req, res, next) => {
     // ini gw tambahin klw email kosong
     status = 401;
     message = "Password is require";
-  } else if (error.name === "email is required") {
-    // ini gw tambahin klw email kosong
-    status = 401;
-    message = "email is required";
   } else if (error.name === "Invalid Email or Password") {
     status = 401;
     message = "Invalid Email or Password";

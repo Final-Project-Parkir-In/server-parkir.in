@@ -1,0 +1,10 @@
+[
+  {
+    "UserId": "1",
+    "ParkingId": "1",
+    "amountToPay": "10000",
+    "carIn": "now",
+    "carOut": "now",
+    "isExpired": false
+  }
+]
