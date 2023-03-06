@@ -90,21 +90,22 @@ class ControllerUser {
     }
   }
 
-  static async addSecondCar(req, res, next) {
-    try {
-      const UserId = req.user.id;
-      const { numberPlate, brand, type } = req.body;
-      const car = await Cars.create({
-        UserId,
-        numberPlate,
-        brand,
-        type,
-      });
-      res.status(201).json({ car, msg: "Car succefully created" });
-    } catch (error) {
-      next(error);
-    }
-  }
+  // static async addSecondCar(req, res, next) {
+  //   try {
+  //     const UserId = req.user.id;
+  //     const { numberPlate, brand, type } = req.body;
+  //     const car = await Cars.create({
+  //       UserId,
+  //       numberPlate,
+  //       brand,
+  //       type,
+  //       isDefault: true,
+  //     });
+  //     res.status(201).json({ car, msg: "Car succefully created" });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
 module.exports = ControllerUser;
 

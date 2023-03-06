@@ -1,19 +1,19 @@
 const { ParkingSlot } = require("../models");
 class ControllerSpot {
-  static async getAllSpots(req, res, next) {
-    try {
-      const { MallId } = req.params;
-      const allSpots = await ParkingSlot.findAll({
-        where: {
-          MallId,
-        },
-      });
-      res.status(200).json(allSpots);
-    } catch (err) {
-      console.log(err, `INI ERORNYA`); ///
-      res.status(500).json(err);
-    }
-  }
+  // static async getAllSpots(req, res, next) {
+  //   try {
+  //     const { MallId } = req.params;
+  //     const allSpots = await ParkingSlot.findAll({
+  //       where: {
+  //         MallId,
+  //       },
+  //     });
+  //     res.status(200).json(allSpots);
+  //   } catch (err) {
+  //     console.log(err, `INI ERORNYA`); ///
+  //     res.status(500).json(err);
+  //   }
+  // }
   ////new func from sam =>
   static async addSlot(req, res, next) {
     try {
