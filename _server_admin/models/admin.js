@@ -10,6 +10,10 @@ class Admin {
     }
 
     static async createAdmin(admin) {
+        // create rule that will just one email in mongodb
+        const validate = await this.getCollections().createIndex({ email: 1 }, { unique: true })
+        // console.log(validate, '<<<<< from model');
+        // end rule
         return this.getCollections().insertOne({
             ...admin,
             password: hashPassword(admin.password)
@@ -18,6 +22,11 @@ class Admin {
 
     static async findAll() {
         return this.getCollections().find().toArray()
+    }
+
+    static async findByEmail(email) {
+        return this.getCollections().findOne({ "email": { $ne: null } })
+
     }
 
     static async findByPk(objectId) {
@@ -38,14 +47,17 @@ class Admin {
         const update = {
             $set: {
                 ...data,
-            password: hashPassword(data.password)
+                password: hashPassword(data.password)
             }
         }; // update the lastName field to 'Doe'
 
         const result = await this.getCollections().updateOne(filter, update);
+
+        console.log(`${result.matchedCount} document(s) matched the filter criteria.`);
+        console.log(`${result.modifiedCount} document(s) were updated.`);
         return result
     }
-     
+
     // sandbox >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     static async sandbox(find, data) {
         console.log(data.userName, '<<<< data update');

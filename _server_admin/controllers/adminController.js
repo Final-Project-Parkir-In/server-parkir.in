@@ -1,5 +1,9 @@
 const { Admin } = require("../models/admin")
 
+// sandbox requirement
+const AdminService = require('../services/admin');
+const adminService = new AdminService()
+
 class Controller {
 
     static async createAdmin(req, res, next) {
@@ -8,8 +12,8 @@ class Controller {
             if (!userName || !email || !password) {
                 throw { name: `BAD REQUEST` }
             }
-            const data = await Admin.createAdmin({
-                userName, email, password
+            await Admin.createAdmin({
+                userName, email, password 
             })
             res.status(201).json({ message: `Successfully add ${userName} to new Admin` })
         } catch (err) {
@@ -68,18 +72,37 @@ class Controller {
         }
     }
 
-    static async sandbox(req, res, next) {
-        try {
-            const { id } = req.params
-            const { userName, email, password } = req.body
-            if (!userName || !email || !password) {
-                throw { name: `BAD REQUEST` }
-            }
-            const findAdmin = await Admin.findByPk(id)
 
-            const test = await Admin.sandbox(findAdmin.userName, { userName, email, password })
-            console.log(test, '<<<< hasilnya');
-            res.status(200).json({ message: `Successfully updated  ${findAdmin.userName} to ${userName}` })
+    static async sandbox(req, res, next) {
+        // try {
+        //     const { id } = req.params
+        //     const { userName, email, password } = req.body
+        //     if (!userName || !email || !password) {
+        //         throw { name: `BAD REQUEST` }
+        //     }
+        //     const findAdmin = await Admin.findByPk(id)
+
+        //     const test = await Admin.sandbox(findAdmin.userName, { userName, email, password })
+        //     console.log(test, '<<<< hasilnya');
+        //     res.status(200).json({ message: `Successfully updated  ${findAdmin.userName} to ${userName}` })
+        // } catch (err) {
+        //     next(err)
+        // }
+
+
+        // try to use schema mongoose
+        try {
+            const admin = req.body
+            const result = await adminService.CreateAdmin(admin)
+            console.log(admin, '<<<<<< result');
+            res.status(201).json(admin)
+
+            // res.send(result)
+            // if (result) {
+            // }
+            // else {
+            //     res.send('error>>>>>>>>>>>>')
+            // }
         } catch (err) {
             next(err)
         }
