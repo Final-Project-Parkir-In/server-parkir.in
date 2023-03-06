@@ -8,11 +8,14 @@ class ControllerUser {
     try {
       const { email, password } = req.body;
 
+      if (!email) throw { name: "email is required" };
+      if (!password) throw { name: "Password is require" };
+
       const user = await User.findOne({
         where: { email },
       });
 
-      if (!user) throw { name: "invalid_credentials<<" };
+      if (!user) throw { name: "Invalid Email or Password" };
 
       const validate = comparePassword(password, user.password);
 
@@ -31,21 +34,22 @@ class ControllerUser {
         email: payload.email,
       });
     } catch (err) {
-      console.log(err);
+      console.log(err, `<<<`);
       next(err);
     }
   }
 
   static async register(req, res, next) {
-    console.log("Masuk");
+    // console.log("Masuk");
+    let { email, password } = req.body; // ini di ubah aja ya pak sesuai database username jdi email
     try {
-      let { username, password } = req.body;
       let user = await User.create({
-        username,
+        email,
         password,
       });
-      res.status(201).json(user);
+      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    let data = require("../data/parkingSlot.json");
+    let data = require("../data/parkingTransaction.json");
     data.map((item) => {
       item.createdAt = new Date();
       item.updatedAt = new Date();

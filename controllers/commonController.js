@@ -2,7 +2,7 @@ var CronJob = require("cron/lib/job");
 const { initScheduledJobs } = require("../cron/cron");
 var CronJob = require("cron/lib/job");
 const { task } = require("../cron/cron");
-const { initScheduledJobs } = require("../cron/cron");
+// const { initScheduledJobs } = require("../cron/cron");
 const {
   ParkingSlot,
   ParkingTransaction,

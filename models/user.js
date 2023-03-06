@@ -1,9 +1,10 @@
 "use strict";
-<<<<<<< HEAD
-const { hash } = require("bcryptjs");
-=======
->>>>>>> testing2HotFix
 const { Model } = require("sequelize");
+// ("use strict");
+// const { hash } = require("bcryptjs");
+const { hashPassword } = require("../helper/bcrypt"); // ini diubah karna requirenya hashnya gk nemu
+
+// const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -16,13 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Cars, {
         foreignKey: "UserId",
       });
-<<<<<<< HEAD
       User.hasMany(models.ParkingTransaction, { foreignKey: "UserId" });
-    }
-=======
-      User.belongsTo(models.ParkingTransaction, { foreignKey: "id" });
-    } // tambahan
->>>>>>> testing2HotFix
+    } // tambahan from sam
   }
   User.init(
     {
@@ -67,11 +63,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      // modelName: "User",
     }
   );
   User.beforeCreate((user) => {
-    user.password = hash(user.password)
-    user.role = 'Admin'
-  })
+    user.password = hashPassword(user.password);
+  });
   return User;
 };
