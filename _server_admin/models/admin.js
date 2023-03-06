@@ -13,7 +13,7 @@ class Admin {
         // create rule that will just one email in mongodb
         const validate = await this.getCollections().createIndex({ email: 1 }, { unique: true })
         // console.log(validate, '<<<<< from model');
-        // end rule
+        // end rule   
         return this.getCollections().insertOne({
             ...admin,
             password: hashPassword(admin.password)
