@@ -12,6 +12,10 @@ routes = express.Router();
 ///dari cakra
 
 
+
+routes.post('/login', ControllerUser.login);
+routes.post('/register', ControllerUser.register);
+routes.post('cars/:UserId', ControllerUser.addCar) // for adding first car when register
 routes.use(authetication);
 routes.get("/malls", ControllerMall.getAllMalls);
 routes.get("/malls/:id", ControllerMall.getMallById);
@@ -29,8 +33,7 @@ routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
 routes.get("/checkOut/:ParkingTransactionId", Controller.checkOut);
 
 routes.patch('/changeDefaultCar/:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
-routes.post('addCar/:UserId', ControllerUser.addCar) // for adding first car when register
-routes.post('addSecondCar', ControllerUser.addSecondCar)// for adding second car after register done
+routes.post('/addSecondCar', ControllerUser.addSecondCar)// for adding second car after register done
 
 ///geolibfunc
 routes.post('/nearestMalls', ControllerMall.getClosestMalls);

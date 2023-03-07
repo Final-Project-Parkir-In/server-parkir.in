@@ -23,7 +23,6 @@ class ControllerUser {
 
       const payload = {
         id: user.id,
-        username: user.username,
         email: user.email,
       };
 
@@ -32,6 +31,8 @@ class ControllerUser {
       res.status(200).json({
         access_token,
         email: payload.email,
+        phoneNumber: user.phoneNumber,
+        username: user.name,
       });
     } catch (err) {
       console.log(err);
