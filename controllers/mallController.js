@@ -1,3 +1,4 @@
+const geolib = require('geolib');
 const { Mall, ParkingSlot } = require("../models/index.js");
 class ControllerMall {
   static async getAllMalls(req, res, next) {
@@ -75,14 +76,16 @@ class ControllerMall {
       next(error);
     }
   }
-
+  
   static async getClosestMalls(req, res, next) {
     try {
-      const malls = await Mall.findAll();
+      const {lat, long} = req.body //revieving user position from FE
 
+      const malls = await Mall.findAll();
+  
       const userPosition = {
-        latitude: -6.262191092145527,
-        longitude: 106.78205179473733,
+        latitude: lat,
+        longitude: long,
       };
 
       const data = malls.filter((mall) => {

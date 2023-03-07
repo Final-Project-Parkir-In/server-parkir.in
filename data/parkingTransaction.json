@@ -2,8 +2,6 @@
   {
     "UserId": 1,
     "ParkingId": 1,
-    "amountToPay": 2000,
-    "carIn": "23-08-2023",
-    "isExpired": false
+    "amountToPay": 2000
   }
 ]

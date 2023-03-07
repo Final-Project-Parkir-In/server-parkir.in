@@ -6,7 +6,6 @@ const {
   Mall,
 } = require("../models/index");
 var cron = require("node-cron");
-const parkingtransaction = require("../models/parkingtransaction");
 
 class Controller {
   ///controller untuk mendapatkan ticket sesuai dengan user yang sedang login
@@ -16,24 +15,28 @@ class Controller {
       const data = await ParkingTransaction.findAll({
         where: {
           UserId,
-          UserId,
         },
+        attributes: {exclude: ['createdAt', 'updatedAt']},
         include: [
           {
             model: User,
+            attributes: {exclude: ['createdAt', 'updatedAt']},
             include: [Cars],
           },
         ],
         include: [
           {
             model: ParkingSlot,
-            include: Mall,
+            attributes: {exclude: ['createdAt', 'updatedAt']},
+            include: {
+              model:Mall,
+              attributes: {exclude: ['createdAt', 'updatedAt']}
+            },
           },
         ],
       });
       res.status(200).json(data);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -46,7 +49,7 @@ class Controller {
         include: [
           {
             model: User,
-            attributes: ["email"],
+            attributes: ["id","email"],
             include: {
               model: Cars,
               where: {

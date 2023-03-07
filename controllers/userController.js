@@ -4,7 +4,6 @@ const { User, Cars } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
-    // console.log("Masuk Login");
     try {
       const { email, password } = req.body;
 
@@ -48,7 +47,7 @@ class ControllerUser {
         phoneNumber,
         name,
       });
-      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
       console.log(error);
       next(error);
@@ -104,6 +103,37 @@ class ControllerUser {
       res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async changeDefaultCar(req, res, next) {
+    try {
+      const { carId } = req.params
+      const UserId = req.user.id;
+
+      ///changging previous cars default status to false
+      await Cars.update(
+        { isDefault: false },
+        {
+          where: {
+            UserId,
+            isDefault: true
+          }
+        }
+      )
+
+      //updating new car status
+      await Cars.update(
+        { isDefault: true },
+        {
+          where: {
+            id: carId
+          }
+        }
+      )
+      res.status(200).json('Default car has been changed')
+    } catch (error) {
+      next(error)
     }
   }
 }
