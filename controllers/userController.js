@@ -15,11 +15,7 @@ class ControllerUser {
         where: { email },
       });
 
-<<<<<<< HEAD
       if (!user) throw { name: "Invalid Email or Password" };
-=======
-      if (!user) throw { name: 'invalid_credentials<<' };
->>>>>>> map-rumah
 
       const validate = comparePassword(password, user.password);
 
@@ -44,16 +40,9 @@ class ControllerUser {
   }
 
   static async register(req, res, next) {
-<<<<<<< HEAD
-    // console.log("Masuk");
-    let { email, password } = req.body; // ini di ubah aja ya pak sesuai database username jdi email
-    try {
-      let user = await User.create({
-=======
     try {
       let { email, password, phoneNumber, name } = req.body;
       let dataUser = await User.create({
->>>>>>> map-rumah
         email,
         password,
         phoneNumber,
@@ -96,11 +85,7 @@ class ControllerUser {
           hooks: false,
         }
       );
-<<<<<<< HEAD
-      res.status(201).json({ car, msg: "Car succefully created" });
-=======
       res.status(201).json({ car, msg: 'Car succefully created' });
->>>>>>> map-rumah
     } catch (error) {
       next(error);
     }
@@ -116,11 +101,7 @@ class ControllerUser {
         brand,
         type,
       });
-<<<<<<< HEAD
-      res.status(201).json({ car, msg: "Car succefully created" });
-=======
       res.status(201).json({ car, msg: 'Car succefully created' });
->>>>>>> map-rumah
     } catch (error) {
       next(error);
     }
