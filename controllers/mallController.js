@@ -27,9 +27,11 @@ class ControllerMall {
           id,
         },
       });
+      if (!mallDetail) throw { name: "Mall not found" }; // ini gw tambahni supaya % nya nambah
       res.status(200).json(mallDetail);
     } catch (err) {
       res.status(500).json(err);
+      next(err);
     }
   }
 
@@ -41,11 +43,13 @@ class ControllerMall {
           MallId,
         },
       });
+      if (data.length === 0) throw { name: "slot parking not found" };
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   }
+
 
   static async getClosestMalls(req, res, next) {
     try {

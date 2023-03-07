@@ -1,4 +1,4 @@
-const { ParkingSlot } = require('../models');
+const { ParkingSlot } = require("../models");
 class ControllerSpot {
   static async getAllSpots(req, res, next) {
     try {

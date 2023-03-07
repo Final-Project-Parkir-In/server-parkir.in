@@ -14,11 +14,11 @@ const {
   ParkingTransaction,
   User,
   Cars,
-} = require('../models/index');
-var cron = require('node-cron');
-const base64 = require('base-64');
-const parkingtransaction = require('../models/parkingtransaction');
-const { CronJob } = require('cron');
+} = require("../models/index");
+var cron = require("node-cron");
+const base64 = require("base-64");
+const parkingtransaction = require("../models/parkingtransaction");
+const { CronJob } = require("cron");
 
 class BookingController {
   static async bookingSpot(req, res, next) {
@@ -32,14 +32,18 @@ class BookingController {
         },
       });
       if (!checkSlot) {
-        throw { msg: 'parking slot not found' };
+        throw { msg: "parking slot not found" };
       }
       if (!checkSlot.isAvailable) {
-        throw { msg: 'udah booking' };
+        throw { msg: "udah booking" };
+      }
+      if (!checkSlot.isAvailable) {
+        throw { msg: "udah booking" };
       }
       //membuat transaksi
       const ticket = await ParkingTransaction.create({
         UserId,
+        ParkingId,
         ParkingId,
       });
       await ParkingSlot.update(
@@ -56,7 +60,7 @@ class BookingController {
 
       let counter = 0;
 
-      const task = cron.schedule('* 1 * * * *', () => {
+      const task = cron.schedule("* 1 * * * *", () => {
         counter++;
         if (counter === 1) {
           ParkingTransaction.update(
@@ -70,7 +74,7 @@ class BookingController {
             }
           );
 
-          console.log('running a task only once');
+          console.log("running a task only once");
           task.destroy(); // destroy the task after it runs once
         }
       });
@@ -79,7 +83,7 @@ class BookingController {
 
       res
         .status(201)
-        .json({ message: 'successfully booking spots', id: ticket.id });
+        .json({ message: "successfully booking spots", id: ticket.id });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -94,8 +98,9 @@ class BookingController {
       );
       if (isExpired) {
         res.status(400).json({
-          message: 'Your ticket is already expired',
+          message: "Your ticket is already expired",
         });
+        return;
         return;
       }
       await ParkingTransaction.update(
@@ -109,7 +114,7 @@ class BookingController {
         }
       );
       res.status(200).json({
-        message: 'car checked in parking spot',
+        message: "car checked in parking spot",
       });
     } catch (err) {
       console.log(err);
@@ -141,11 +146,13 @@ class BookingController {
       const price = hours * transaction.ParkingSlot.priceOfSpot;
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
+      
       const serverKey = 'SB-Mid-server-fAmCO4IJHoOH7lQKN5iwlVmQ:';
+
       const base64Key = base64.encode(serverKey);
       const orderID =
-        'Your-Order-id' + Math.floor(100000000000 + Math.random() * 90000000);
-      const url = 'https://app.sandbox.midtrans.com/snap/v1/transactions';
+        "Your-Order-id" + Math.floor(100000000000 + Math.random() * 90000000);
+      const url = "https://app.sandbox.midtrans.com/snap/v1/transactions";
       const data = {
         transaction_details: {
           order_id: orderID,
@@ -153,33 +160,35 @@ class BookingController {
         },
         item_details: [
           {
-            id: 'SPOT-ID-' + transaction.ParkingSlot.id,
+            id: "SPOT-ID-" + transaction.ParkingSlot.id,
             price: price,
             quantity: 1,
-            name: 'Parking slot at Pondok Indah',
-            category: 'spot parking',
-            merchant_name: 'Merchant',
+            name: "Parking slot at Pondok Indah",
+            category: "spot parking",
+            merchant_name: "Merchant",
           },
         ],
         credit_card: {
           secure: true,
         },
         customer_details: {
+
           email: transaction.User.email,
           phone: transaction.User.phoneNumber,
           first_name: transaction.User.name,
           // last_name: transaction.User.name,
           // first_name: 'uding',
           last_name: '',
+
         },
       };
       console.log(transaction.User, '<===== uhui');
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Basic ' + base64Key,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Basic " + base64Key,
         },
         body: JSON.stringify(data),
       });
