@@ -12,6 +12,7 @@ routes = express.Router()
 
 routes.post('/login', ControllerUser.login);
 routes.post('/register', ControllerUser.register);
+routes.use(authetication);
 // get all mals
 routes.get('/malls', ControllerMall.getAllMalls);
 routes.get('/malls/:id', ControllerMall.getMallById);
@@ -23,7 +24,6 @@ routes.post('/checkIn/:id', Controller.checkIn); // tambahan
 routes.get('/spots/:MallId', ControllerSpot.getAllSpots);
 // when user booking
 
-routes.use(authetication);
 ///routes untuk user membooking parkir berdasarkan id parking spot
 routes.post('/bookings/:ParkingId', BookingController.bookingSpot);
 routes.post('/checkIn/:ParkingTransactionId', BookingController.checkIn);
