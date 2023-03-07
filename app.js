@@ -16,17 +16,9 @@ app.use(express.json());
 app.use(routes);
 app.use(errorHandler);
 
-// app.listen(PORT, () => {
-//   console.log('Server listening to the port', PORT);
-// });
+app.listen(PORT, () => {
+  console.log('Server listening to the port', PORT);
+});
 
-(async () => {
-  try {
-      await mongoConnect();
-      app.listen(PORT, (_) => console.log(`Apps is listening at port ${PORT} and connect to mongoDB`));
-  } catch (err) {
-      console.log(`Failed to connect to mongodb`);
-  }
-})();
 
 module.exports = app;
