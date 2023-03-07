@@ -1,26 +1,18 @@
 [
     {
         "email": "muhammad@gmail.com",
-        "password": "qwerty",
-        "long": "",
-        "lat": ""
+        "password": "qwerty"
     },
     {
         "email": "yamin@gmail.com",
-        "password": "qwerty",
-        "long": "",
-        "lat": ""
+        "password": "qwerty"
     },
     {
         "email": "fahmi@gmail.com",
-        "password": "qwerty",
-        "long": "",
-        "lat": ""
+        "password": "qwerty"
     },
     {
         "email": "bismsa@gmail.com",
-        "password": "qwerty",
-        "long": "",
-        "lat": ""
+        "password": "qwerty"
     }
 ]

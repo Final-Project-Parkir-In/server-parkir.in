@@ -16,12 +16,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      lat: {
-        type: Sequelize.STRING,
-      },
-      long: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
