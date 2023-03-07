@@ -1,19 +1,11 @@
-var CronJob = require('cron/lib/job');
-const { initScheduledJobs } = require('../cron/cron');
-var CronJob = require('cron/lib/job');
-const { task } = require('../cron/cron');
 const {
   ParkingSlot,
   ParkingTransaction,
   User,
   Cars,
   Mall,
-
-} = require('../models/index');
-var cron = require('node-cron');
-const parkingtransaction = require('../models/parkingtransaction');
-
-
+} = require("../models/index");
+var cron = require("node-cron");
 
 class Controller {
   ///controller untuk mendapatkan ticket sesuai dengan user yang sedang login
@@ -22,7 +14,6 @@ class Controller {
       const UserId = req.user.id;
       const data = await ParkingTransaction.findAll({
         where: {
-          UserId,
           UserId,
         },
         include: [
@@ -42,7 +33,6 @@ class Controller {
       });
       res.status(200).json(data);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

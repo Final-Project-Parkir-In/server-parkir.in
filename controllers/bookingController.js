@@ -75,7 +75,7 @@ class BookingController {
           );
 
           console.log("running a task only once");
-          task.destroy(); // destroy the task after it runs once
+          task.destroy();
         }
       });
 
@@ -100,7 +100,6 @@ class BookingController {
         res.status(400).json({
           message: "Your ticket is already expired",
         });
-        return;
         return;
       }
       await ParkingTransaction.update(

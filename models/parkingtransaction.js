@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   ParkingTransaction.beforeCreate((transaction) => {
-    transaction.isExpired = true;
+    transaction.isExpired = false;
   });
   return ParkingTransaction;
 };

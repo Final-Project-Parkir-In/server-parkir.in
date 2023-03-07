@@ -10,22 +10,21 @@ class ControllerSpot {
       });
       res.status(200).json(allSpots);
     } catch (err) {
-      console.log(err, `INI ERORNYA`); ///
-      res.status(500).json(err);
+      next(err)
     }
   }
+
   static async addSlot(req, res, next) {
     try {
-      let { spot, isAvailable = true, priceOfSpot, MallId } = req.body;
+      let { spot, priceOfSpot, MallId } = req.body;
       let data = await ParkingSlot.create({
         spot,
-        isAvailable,
+        isAvalable: true,
         priceOfSpot,
         MallId,
       });
       res.status(201).json({ name: `Success add Spot` });
     } catch (error) {
-      console.log(error, `<<<`);
       next(error);
     }
   }
