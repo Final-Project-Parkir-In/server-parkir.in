@@ -7,7 +7,7 @@ const ControllerMall = require("../controllers/mallController");
 // const ControllerSpot = require("../controllers/spotController");
 const BookingController = require("../controllers/bookingController");
 const cron = require("node-cron");
-const { route } = require("../app");
+// const { route } = require("../app");
 
 routes = express.Router();
 routes.post("/login", ControllerUser.login);

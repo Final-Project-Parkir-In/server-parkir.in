@@ -287,6 +287,14 @@ describe("Check", () => {
     );
   });
 
+  //Read Detail Mall not found
+  test("Read Detail Mall not found", async () => {
+    const response = await request(app).get(`/malls/100`);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("name", "Mall not found");
+  });
+
   //Read parkingSpots
   test("Read All parkingSpots", async () => {
     const response = await request(app)
@@ -420,6 +428,7 @@ describe("Check", () => {
       .set("access_token", access_token);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("token");
   });
 
   // Checkout Login First
