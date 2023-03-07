@@ -7,7 +7,7 @@ const {
   ParkingTransaction,
   User,
   Cars,
-  Mall
+  Mall,
 } = require("../models/index");
 var cron = require("node-cron");
 const parkingtransaction = require("../models/parkingtransaction");
@@ -19,6 +19,7 @@ class Controller {
       const UserId = req.user.id;
       const data = await ParkingTransaction.findAll({
         where: {
+          UserId,
           UserId,
         },
         include: [
@@ -43,59 +44,57 @@ class Controller {
 
   static async getTicket(req, res, next) {
     try {
-      
-      const { id } = req.params
+      const { id } = req.params;
       const data = await ParkingTransaction.findByPk(id, {
-        attributes: ['id', 'createdAt'],
+        attributes: ["id", "createdAt"],
         include: [
           {
-            model: User, 
-            attributes: ['email'],
+            model: User,
+            attributes: ["email"],
             include: {
               model: Cars,
               where: {
-                isDefault: true
+                isDefault: true,
               },
-              attributes: ['numberPlate', 'brand', 'type'],
+              attributes: ["numberPlate", "brand", "type"],
             },
           },
           {
             model: ParkingSlot,
-            attributes: ['spot'],
+            attributes: ["spot"],
             include: {
               model: Mall,
-              attributes: ["name"]
-            }
-          }
-        ]
-      })
-  
-      res.status(200).json(data)
+              attributes: ["name"],
+            },
+          },
+        ],
+      });
+
+      res.status(200).json(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-
 
   static async checkOut(req, res, next) {
     try {
       const { ParkingTransactionId } = req.params;
       const data = await ParkingTransaction.findByPk(ParkingTransactionId, {
-        attributes: ['id', 'createdAt'],
+        attributes: ["id", "createdAt"],
         include: [
           {
             model: User,
-            attributes: ['email', 'name'],
+            attributes: ["email", "name"],
             include: [
               {
                 model: Cars,
-                attributes: ['numberPlate', 'brand', 'type'],
+                attributes: ["numberPlate", "brand", "type"],
               },
             ],
           },
           {
             model: ParkingSlot,
-            attributes: ['spot'],
+            attributes: ["spot"],
             include: {
               model: Mall,
             },

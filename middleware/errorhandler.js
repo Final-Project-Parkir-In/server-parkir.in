@@ -11,10 +11,12 @@ const errorHandler = (error, req, res, next) => {
     message = error.errors.map((item) => {
       return item.message;
     });
-  } else if (error.name === "BadRequest") {
-    status = 400;
-    message = "Email or Password is required";
-  } else if (
+  }
+  // else if (error.name === "BadRequest") {
+  //   status = 400;
+  //   message = "Email or Password is required";
+  // }
+  else if (
     error.name === "Unauthorized" ||
     error.name === "JsonWebTokenError"
   ) {
@@ -33,15 +35,26 @@ const errorHandler = (error, req, res, next) => {
     // ini gw tambahin klw email kosong
     status = 401;
     message = "Password is require";
-  } else if (error.name === "Invalid Email or Password") {
-    status = 401;
-    message = "Invalid Email or Password";
-  } else if (error.name === "Forbidden") {
-    status = 403;
-    message = "the server understands the request but refuses to authorize it";
-  } else if (error.name === "NotFound") {
+  }
+  // else if (error.name === "Invalid Email or Password") {
+  //   status = 401;
+  //   message = "Invalid Email or Password";
+  // }
+  // else if (error.name === "Forbidden") {
+  //   status = 403;
+  //   message = "the server understands the request but refuses to authorize it";
+  // }
+  // else if (error.name === "NotFound") {
+  //   status = 404;
+  //   message = "Data not found";
+  // }
+  else if (error.name === "Mall not found") {
+    // ini gw tambahni supaya % nya nambah
     status = 404;
-    message = "Data not found";
+    message = "Mall not found";
+  } else {
+    status;
+    message;
   }
 
   return res.status(status).json({ message });
