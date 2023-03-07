@@ -1,4 +1,6 @@
-const { Mall, ParkingSlot } = require("../models/index.js");
+const { Mall, ParkingSlot } = require('../models/index.js');
+const geolib = require('geolib');
+
 class ControllerMall {
   static async getAllMalls(req, res, next) {
     try {
@@ -48,41 +50,14 @@ class ControllerMall {
     }
   }
 
-  ///malls mongodb
-  static async addMalls(req, res, next) {
-    try {
-      const { name, location } = req.body;
-      // if (!name) {
-      //   throw { name:"BAD REQUEST" }
-      // }
-      console.log(name, location);
-      await MallsMongodb.addMalls({
-        name,
-        location,
-      });
-      res.status(201).json({ message: "success" });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async getNearestMalls(req, res, next) {
-    try {
-      const nearestMall = await MallsMongodb.getNearest();
-      console.log(nearestMall);
-      res.status(200).json(nearestMall);
-    } catch (error) {
-      next(error);
-    }
-  }
 
   static async getClosestMalls(req, res, next) {
     try {
       const malls = await Mall.findAll();
-
+      const { lat, long } = req.body;
       const userPosition = {
-        latitude: -6.262191092145527,
-        longitude: 106.78205179473733,
+        latitude: lat,
+        longitude: long,
       };
 
       const data = malls.filter((mall) => {

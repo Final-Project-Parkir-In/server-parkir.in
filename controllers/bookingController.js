@@ -125,6 +125,7 @@ class BookingController {
   static async checkOut(req, res, next) {
     try {
       const { ParkingTransactionId } = req.params;
+
       // mendapatkan semua data transaction
       const transaction = await ParkingTransaction.findOne({
         where: {
@@ -132,6 +133,7 @@ class BookingController {
         },
         include: [ParkingSlot, User],
       });
+
       // bandingkan waktu saat cek out dan cek in
       const checkInTime = new Date(transaction.carIn);
       const checkOutTime = new Date();
@@ -144,7 +146,9 @@ class BookingController {
       const price = hours * transaction.ParkingSlot.priceOfSpot;
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
-      const serverKey = "SB-Mid-server-eYv4NQeO2ODjMM6ywHr_YFX9:";
+      
+      const serverKey = 'SB-Mid-server-fAmCO4IJHoOH7lQKN5iwlVmQ:';
+
       const base64Key = base64.encode(serverKey);
       const orderID =
         "Your-Order-id" + Math.floor(100000000000 + Math.random() * 90000000);
@@ -168,11 +172,17 @@ class BookingController {
           secure: true,
         },
         customer_details: {
-          name: transaction.User.name || "Uhui",
+
           email: transaction.User.email,
-          phone: transaction.User.phoneNumber || "0822981928",
+          phone: transaction.User.phoneNumber,
+          first_name: transaction.User.name,
+          // last_name: transaction.User.name,
+          // first_name: 'uding',
+          last_name: '',
+
         },
       };
+      console.log(transaction.User, '<===== uhui');
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -182,6 +192,7 @@ class BookingController {
         },
         body: JSON.stringify(data),
       });
+      // redirct_url, token
       const redirToken = await response.json();
       res.status(200).json(redirToken);
     } catch (err) {

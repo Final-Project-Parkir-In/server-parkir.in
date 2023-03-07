@@ -8,14 +8,15 @@ class ControllerUser {
     try {
       const { email, password } = req.body;
 
-      if (!email) throw { name: "email is required" };
-      if (!password) throw { name: "Password is require" };
+      if (!email) throw { name: 'email is required' };
+      if (!password) throw { name: 'Password is require' };
 
       const user = await User.findOne({
         where: { email },
       });
 
-      if (!user) throw { name: "Invalid Email or Password" };
+      if (!user) throw { name: 'Invalid Email or Password' };
+
 
       const validate = comparePassword(password, user.password);
 
@@ -48,7 +49,7 @@ class ControllerUser {
         phoneNumber,
         name,
       });
-      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
       console.log(error);
       next(error);
@@ -85,7 +86,8 @@ class ControllerUser {
           hooks: false,
         }
       );
-      res.status(201).json({ car, msg: "Car succefully created" });
+      res.status(201).json({ car, msg: 'Car succefully created' });
+
     } catch (error) {
       next(error);
     }
@@ -101,7 +103,9 @@ class ControllerUser {
         brand,
         type,
       });
-      res.status(201).json({ car, msg: "Car succefully created" });
+
+      res.status(201).json({ car, msg: 'Car succefully created' });
+
     } catch (error) {
       next(error);
     }

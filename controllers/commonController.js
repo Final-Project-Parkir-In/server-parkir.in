@@ -1,16 +1,19 @@
-var CronJob = require("cron/lib/job");
-const { initScheduledJobs } = require("../cron/cron");
-var CronJob = require("cron/lib/job");
-const { task } = require("../cron/cron");
+var CronJob = require('cron/lib/job');
+const { initScheduledJobs } = require('../cron/cron');
+var CronJob = require('cron/lib/job');
+const { task } = require('../cron/cron');
 const {
   ParkingSlot,
   ParkingTransaction,
   User,
   Cars,
   Mall,
-} = require("../models/index");
-var cron = require("node-cron");
-const parkingtransaction = require("../models/parkingtransaction");
+
+} = require('../models/index');
+var cron = require('node-cron');
+const parkingtransaction = require('../models/parkingtransaction');
+
+
 
 class Controller {
   ///controller untuk mendapatkan ticket sesuai dengan user yang sedang login
@@ -24,15 +27,17 @@ class Controller {
         },
         include: [
           {
-            model: User,
-            include: [Cars],
-          },
-        ],
-        include: [
-          {
             model: ParkingSlot,
             include: Mall,
           },
+          {
+            model: User,
+            include: Cars,
+          },
+        ],
+        order: [
+          ['id', 'DESC'],
+          ['createdAt', 'DESC'],
         ],
       });
       res.status(200).json(data);
@@ -44,13 +49,16 @@ class Controller {
 
   static async getTicket(req, res, next) {
     try {
+
+      console.log('masuk');
       const { id } = req.params;
-      const data = await ParkingTransaction.findByPk(id, {
-        attributes: ["id", "createdAt"],
+      const data = await ParkingTransaction.findOne({
+        attributes: ['id', 'createdAt', 'carIn', 'isExpired'],
         include: [
           {
             model: User,
-            attributes: ["email"],
+            attributes: ['email', 'name', 'phoneNumber'],
+
             include: {
               model: Cars,
               where: {
@@ -64,12 +72,15 @@ class Controller {
             attributes: ["spot"],
             include: {
               model: Mall,
-              attributes: ["name"],
+              attributes: ['name', 'address', 'imgUrl'],
             },
           },
         ],
-      });
+        where: {
+          id,
+        },
 
+      });
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -101,6 +112,7 @@ class Controller {
           },
         ],
       });
+      console.log('masuk');
       res.status(200).json(data);
     } catch (error) {
       next(error);
