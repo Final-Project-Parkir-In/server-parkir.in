@@ -5,7 +5,7 @@ const ControllerMall = require("../controllers/mallController");
 const ControllerSpot = require("../controllers/spotController");
 const BookingController = require("../controllers/bookingController");
 const cron = require("node-cron");
-
+const { authetication } = require("../middleware/auth");
 routes = express.Router();
 
 routes.post("/login", ControllerUser.login);
@@ -16,16 +16,18 @@ routes.get("/malls", ControllerMall.getAllMalls);
 routes.get("/malls/:id", ControllerMall.getMallById);
 routes.get("/checkOut/:ParkingTransactionId", BookingController.checkOut);
 // get all user by mall id
-routes.get("/getAllTickets", Controller.getAllTickets);
-routes.post("/getAllTickets", Controller.getAllTickets); //tambahan
+// routes.get("/getAllTickets", Controller.getAllTickets);
+// routes.post("/getAllTickets", Controller.getAllTickets); //tambahan
 routes.post("/addSlot", ControllerSpot.addSlot); //tambahan
-routes.post("/checkIn/:id", Controller.checkIn); // tambahan
+// routes.post("/checkIn/:id", Controller.checkIn); // tambahan
 routes.get("/spots/:MallId", ControllerSpot.getAllSpots);
+routes.get("/getCars", ControllerUser.getCars); //tambahan
+routes.post("/addCar/:id", ControllerUser.addCar);
 // when user booking
 //=============================================================
 //=============================================================
 
-routes.use(authetication);
+// routes.use(authetication);
 ///routes untuk user membooking parkir berdasarkan id parking spot
 routes.post("/bookings/:ParkingId", BookingController.bookingSpot);
 routes.post("/checkIn/:ParkingTransactionId", BookingController.checkIn);

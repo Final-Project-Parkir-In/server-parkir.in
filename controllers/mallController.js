@@ -1,4 +1,5 @@
 const { Mall, ParkingSlot } = require("../models/index.js");
+const geolib = require("geolib");
 class ControllerMall {
   static async getAllMalls(req, res, next) {
     try {
@@ -43,34 +44,6 @@ class ControllerMall {
       });
       if (data.length === 0) throw { name: "slot parking not found" };
       res.status(200).json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  ///malls mongodb
-  static async addMalls(req, res, next) {
-    try {
-      const { name, location } = req.body;
-      // if (!name) {
-      //   throw { name:"BAD REQUEST" }
-      // }
-      console.log(name, location);
-      await MallsMongodb.addMalls({
-        name,
-        location,
-      });
-      res.status(201).json({ message: "success" });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async getNearestMalls(req, res, next) {
-    try {
-      const nearestMall = await MallsMongodb.getNearest();
-      console.log(nearestMall);
-      res.status(200).json(nearestMall);
     } catch (error) {
       next(error);
     }

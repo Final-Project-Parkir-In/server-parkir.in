@@ -10,7 +10,7 @@ class ControllerSpot {
       });
       res.status(200).json(allSpots);
     } catch (err) {
-      console.log(err, `INI ERORNYA`); ///
+      // console.log(err, `INI ERORNYA`); ///
       res.status(500).json(err);
     }
   }

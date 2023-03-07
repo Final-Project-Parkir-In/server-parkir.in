@@ -95,6 +95,8 @@ describe("Check", () => {
     const body = {
       email: "glem633@mail.com",
       password: "123456",
+      name: "bunja",
+      phoneNumber: "0823786678",
     };
     const response = await request(app).post("/register").send(body);
     expect(response.status).toBe(201);
@@ -256,7 +258,9 @@ describe("Check", () => {
 
   //Read Mall
   test("Read All Mall", async () => {
-    const response = await request(app).get(`/malls`);
+    const response = await request(app)
+      .get(`/malls`)
+      .set("access_token", access_token);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array || Object);
     expect(response.body).toHaveLength(5);
@@ -273,7 +277,9 @@ describe("Check", () => {
 
   //Read Detail Mall
   test("Read Detail Mall", async () => {
-    const response = await request(app).get(`/malls/1`);
+    const response = await request(app)
+      .get(`/malls/1`)
+      .set("access_token", access_token);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("id", 1);
@@ -289,7 +295,9 @@ describe("Check", () => {
 
   //Read Detail Mall not found
   test("Read Detail Mall not found", async () => {
-    const response = await request(app).get(`/malls/100`);
+    const response = await request(app)
+      .get(`/malls/100`)
+      .set("access_token", access_token);
     expect(response.status).toBe(500);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("name", "Mall not found");
@@ -371,10 +379,10 @@ describe("Check", () => {
     expect(response.status).toBe(200);
     console.log(response.body, `INIBODY`);
     expect(response.body).toHaveLength(2);
-    expect(response.body[0]).toHaveProperty("id", 1);
+    expect(response.body[0]).toHaveProperty("id", 2);
     expect(response.body[0]).toHaveProperty("UserId", 1);
     expect(response.body[0]).toHaveProperty("ParkingId", 1);
-    expect(response.body[0]).toHaveProperty("amountToPay", 10000);
+    expect(response.body[0]).toHaveProperty("amountToPay", 2000);
     expect(response.body[0]).toHaveProperty("User.id", 1);
     expect(response.body[0]).toHaveProperty("User.email", "muhammad@gmail.com");
   });
@@ -560,4 +568,21 @@ describe("Check", () => {
   //   expect(response.body).toHaveProperty("car.type", "suv");
   //   expect(response.body).toHaveProperty("msg", "Car succefully created");
   // });
+
+  //read all nearestMalls
+  test("Read All nearestMalls", async () => {
+    const response = await request(app)
+      .get(`/nearestMalls`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(200);
+    // console.log(response.body, `INIBODY`);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0]).toHaveProperty("id", 1);
+    expect(response.body[0]).toHaveProperty("name", "PIM");
+    expect(response.body[0]).toHaveProperty("long", "-6.265670347012476");
+    expect(response.body[0]).toHaveProperty(
+      "imgUrl",
+      "https://awsimages.detik.net.id/visual/2021/05/03/dok-pondok-indah-mall_169.jpeg?w=650"
+    );
+  });
 });

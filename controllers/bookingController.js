@@ -101,7 +101,6 @@ class BookingController {
           message: "Your ticket is already expired",
         });
         return;
-        return;
       }
       await ParkingTransaction.update(
         {

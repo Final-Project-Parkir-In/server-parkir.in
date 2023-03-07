@@ -48,7 +48,7 @@ class ControllerUser {
         phoneNumber,
         name,
       });
-      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
       console.log(error);
       next(error);
@@ -91,21 +91,21 @@ class ControllerUser {
     }
   }
 
-  static async addSecondCar(req, res, next) {
-    try {
-      const UserId = req.user.id;
-      const { numberPlate, brand, type } = req.body;
-      const car = await Cars.create({
-        UserId,
-        numberPlate,
-        brand,
-        type,
-      });
-      res.status(201).json({ car, msg: "Car succefully created" });
-    } catch (error) {
-      next(error);
-    }
-  }
+  // static async addSecondCar(req, res, next) {
+  //   try {
+  //     const UserId = req.user.id;
+  //     const { numberPlate, brand, type } = req.body;
+  //     const car = await Cars.create({
+  //       UserId,
+  //       numberPlate,
+  //       brand,
+  //       type,
+  //     });
+  //     res.status(201).json({ car, msg: "Car succefully created" });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
 module.exports = ControllerUser;
 
