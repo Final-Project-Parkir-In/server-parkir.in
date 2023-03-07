@@ -2,12 +2,12 @@ var CronJob = require("cron/lib/job");
 const { initScheduledJobs } = require("../cron/cron");
 var CronJob = require("cron/lib/job");
 const { task } = require("../cron/cron");
-const { initScheduledJobs } = require("../cron/cron");
 const {
   ParkingSlot,
   ParkingTransaction,
   User,
   Cars,
+  Mall
 } = require("../models/index");
 var cron = require("node-cron");
 const parkingtransaction = require("../models/parkingtransaction");
@@ -55,6 +55,40 @@ class Controller {
     }
   }
 
+  static async getTicket(req, res, next) {
+    try {
+      
+      const { id } = req.params
+      const data = await ParkingTransaction.findByPk(id, {
+        attributes: ['id', 'createdAt'],
+        include: [
+          {
+            model: User, 
+            attributes: ['email'],
+            include: {
+              model: Cars,
+              where: {
+                isDefault: true
+              },
+              attributes: ['numberPlate', 'brand', 'type'],
+            },
+          },
+          {
+            model: ParkingSlot,
+            attributes: ['spot'],
+            include: {
+              model: Mall,
+              attributes: ["name"]
+            }
+          }
+        ]
+      })
+  
+      res.status(200).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
 
 
   static async checkOut(req, res, next) {
@@ -101,7 +135,7 @@ class Controller {
         body: JSON.stringify(data),
       });
       res.status(200).json(response);
-    } catch (err) {}
+    } catch (err) { }
   }
 }
 

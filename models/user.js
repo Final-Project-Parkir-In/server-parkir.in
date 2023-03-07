@@ -53,8 +53,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      lat: DataTypes.STRING,
-      long: DataTypes.STRING,
     },
     {
       sequelize,
