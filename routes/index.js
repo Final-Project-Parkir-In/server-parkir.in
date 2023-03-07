@@ -31,6 +31,8 @@ routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
 routes.get("/checkOut/:ParkingTransactionId", Controller.checkOut);
 
 routes.patch('/changeDefaultCar/:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
+routes.post('addCar', ControllerUser.addCar) // for adding first car when register
+routes.post('addSecondCar', ControllerUser.addSecondCar)// for adding second car after register done
 
 ///geolibfunc
 routes.get("/nearestMalls", ControllerMall.getClosestMalls);
