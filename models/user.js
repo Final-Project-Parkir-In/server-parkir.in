@@ -1,6 +1,6 @@
-"use strict";
-const { hash } = require("bcryptjs");
-const { Model } = require("sequelize");
+'use strict';
+const { hash } = require('bcryptjs');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Cars, {
-        foreignKey: "UserId",
+        foreignKey: 'UserId',
       });
-      User.hasMany(models.ParkingTransaction, { foreignKey: "UserId" });
+      User.hasMany(models.ParkingTransaction, { foreignKey: 'UserId' });
     }
   }
   User.init(
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         unique: {
           args: true,
-          msg: "Email address already in use!",
+          msg: 'Email address already in use!',
         },
       },
       password: {
@@ -49,21 +49,23 @@ module.exports = (sequelize, DataTypes) => {
           },
           len: {
             args: [5, Infinity],
-            msg: "Minimum 5 characters required in password",
+            msg: 'Minimum 5 characters required in password',
           },
         },
       },
       lat: DataTypes.STRING,
       long: DataTypes.STRING,
+      phoneNumber: DataTypes.TEXT,
+      name: DataTypes.TEXT,
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: 'User',
     }
   );
   User.beforeCreate((user) => {
-    user.password = hash(user.password)
-    user.role = 'Admin'
-  })
+    user.password = hash(user.password);
+    user.role = 'Admin';
+  });
   return User;
 };

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,13 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    let data = require("../data/parkingSlot.json");
+    let data = require('../data/parkingTransaction.json');
     data.map((item) => {
       item.createdAt = new Date();
       item.updatedAt = new Date();
       return item;
     });
-    await queryInterface.bulkInsert("ParkingTransactions", data, {});
+    await queryInterface.bulkInsert('ParkingTransactions', data, {});
   },
 
   async down(queryInterface, Sequelize) {
@@ -28,6 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("ParkingTransactions", {}, {});
+    await queryInterface.bulkDelete('ParkingTransactions', {}, {});
   },
 };
