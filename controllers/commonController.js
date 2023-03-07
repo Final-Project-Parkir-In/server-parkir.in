@@ -27,8 +27,8 @@ class Controller {
           },
         ],
         order: [
-          ['id', 'DESC'],
-          ['createdAt', 'DESC'],
+          ["id", "DESC"],
+          ["createdAt", "DESC"],
         ],
       });
       res.status(200).json(data);
@@ -39,15 +39,14 @@ class Controller {
 
   static async getTicket(req, res, next) {
     try {
-
-      console.log('masuk');
+      console.log("masuk");
       const { id } = req.params;
       const data = await ParkingTransaction.findOne({
-        attributes: ['id', 'createdAt', 'carIn', 'isExpired'],
+        attributes: ["id", "createdAt", "carIn", "isExpired"],
         include: [
           {
             model: User,
-            attributes: ['email', 'name', 'phoneNumber'],
+            attributes: ["email", "name", "phoneNumber"],
 
             include: {
               model: Cars,
@@ -62,14 +61,13 @@ class Controller {
             attributes: ["spot"],
             include: {
               model: Mall,
-              attributes: ['name', 'address', 'imgUrl'],
+              attributes: ["name", "address", "imgUrl"],
             },
           },
         ],
         where: {
           id,
         },
-
       });
       res.status(200).json(data);
     } catch (error) {
@@ -102,7 +100,7 @@ class Controller {
           },
         ],
       });
-      console.log('masuk');
+      console.log("masuk");
       res.status(200).json(data);
     } catch (error) {
       next(error);

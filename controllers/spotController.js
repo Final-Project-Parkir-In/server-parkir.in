@@ -10,7 +10,7 @@ class ControllerSpot {
       });
       res.status(200).json(allSpots);
     } catch (err) {
-      next(err)
+      next(err);
     }
   }
 

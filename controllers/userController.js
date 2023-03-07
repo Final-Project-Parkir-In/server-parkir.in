@@ -7,15 +7,14 @@ class ControllerUser {
     try {
       const { email, password } = req.body;
 
-      if (!email) throw { name: 'email is required' };
-      if (!password) throw { name: 'Password is require' };
+      if (!email) throw { name: "email is required" };
+      if (!password) throw { name: "Password is require" };
 
       const user = await User.findOne({
         where: { email },
       });
 
-      if (!user) throw { name: 'Invalid Email or Password' };
-
+      if (!user) throw { name: "Invalid Email or Password" };
 
       const validate = comparePassword(password, user.password);
 
@@ -50,6 +49,7 @@ class ControllerUser {
         name,
       });
       res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
       console.log(error);
       next(error);
@@ -72,7 +72,7 @@ class ControllerUser {
 
   static async addCar(req, res, next) {
     try {
-      const {UserId} = req.params;
+      const { UserId } = req.params;
       const { numberPlate, brand, type } = req.body;
       const car = await Cars.create(
         {
@@ -86,7 +86,7 @@ class ControllerUser {
           hooks: false,
         }
       );
-      res.status(201).json({ car, msg: 'Car succefully created' });
+      res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
       next(error);
     }
@@ -103,8 +103,7 @@ class ControllerUser {
         type,
       });
 
-      res.status(201).json({ car, msg: 'Car succefully created' });
-
+      res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
       next(error);
     }
@@ -112,7 +111,7 @@ class ControllerUser {
 
   static async changeDefaultCar(req, res, next) {
     try {
-      const { carId } = req.params
+      const { carId } = req.params;
       const UserId = req.user.id;
 
       ///changging previous cars default status to false
@@ -121,23 +120,23 @@ class ControllerUser {
         {
           where: {
             UserId,
-            isDefault: true
-          }
+            isDefault: true,
+          },
         }
-      )
+      );
 
       //updating new car status
       await Cars.update(
         { isDefault: true },
         {
           where: {
-            id: carId
-          }
+            id: carId,
+          },
         }
-      )
-      res.status(200).json('Default car has been changed')
+      );
+      res.status(200).json("Default car has been changed");
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }
