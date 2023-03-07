@@ -19,8 +19,6 @@ const base64 = require('base-64');
 const parkingtransaction = require('../models/parkingtransaction');
 const { CronJob } = require('cron');
 
-
-
 class BookingController {
   static async bookingSpot(req, res, next) {
     try {
@@ -35,11 +33,24 @@ class BookingController {
       if (!checkSlot) {
         throw { msg: 'parking slot not found' };
       }
+      if (!checkSlot.isAvailable) {
+        throw { msg: 'udah booking' };
+      }
       //membuat transaksi
       const ticket = await ParkingTransaction.create({
         UserId,
-        ParkingId
+        ParkingId,
       });
+      await ParkingSlot.update(
+        {
+          isAvailable: false,
+        },
+        {
+          where: {
+            id: ParkingId,
+          },
+        }
+      );
       // Function cron untuk menghitung mundur 1 jam setelah booking terbuat. Akan memeriksa carIn pada table booking, jika masih false setelah 1 jam (customer belum check-in) maka booking tersebut akan dihapus
 
       let counter = 0;
@@ -65,7 +76,9 @@ class BookingController {
 
       task.start();
 
-      res.status(201).json({ message: 'successfully booking spots' });
+      res
+        .status(201)
+        .json({ message: 'successfully booking spots', id: ticket.id });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -82,7 +95,7 @@ class BookingController {
         res.status(400).json({
           message: 'Your ticket is already expired',
         });
-        return
+        return;
       }
       await ParkingTransaction.update(
         {
@@ -123,14 +136,6 @@ class BookingController {
       const hours = Math.ceil(diffInMs / (1000 * 60 * 60)); // Difference in hours
       //harga yang harus di bayar
       const price = hours * transaction.ParkingSlot.priceOfSpot;
-      console.log(
-        price,
-        hours,
-        diffInMs,
-
-        'ini cui'
-      );
-
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
       const serverKey = 'SB-Mid-server-eYv4NQeO2ODjMM6ywHr_YFX9:';

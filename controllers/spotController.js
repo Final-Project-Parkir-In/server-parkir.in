@@ -1,4 +1,4 @@
-const { ParkingSlot } = require("../models");
+const { ParkingSlot } = require('../models');
 class ControllerSpot {
   static async getAllSpots(req, res, next) {
     try {
@@ -14,7 +14,6 @@ class ControllerSpot {
       res.status(500).json(err);
     }
   }
-  ////new func from sam =>
   static async addSlot(req, res, next) {
     try {
       let { spot, isAvailable = true, priceOfSpot, MallId } = req.body;
