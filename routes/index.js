@@ -1,3 +1,6 @@
+///dari cakra
+// accept all incoming
+///backend final
 const express = require("express");
 const ControllerUser = require("../controllers/userController");
 const Controller = require("../controllers/commonController");
@@ -6,7 +9,7 @@ const ControllerSpot = require("../controllers/spotController");
 const BookingController = require("../controllers/bookingController");
 const { authetication } = require("../middleware/auth");
 routes = express.Router();
-
+///dari cakra
 
 
 routes.post("/login", ControllerUser.login);
