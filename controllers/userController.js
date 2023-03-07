@@ -8,18 +8,14 @@ class ControllerUser {
     try {
       const { email, password } = req.body;
 
-      if (!email) throw { name: "email is required" };
-      if (!password) throw { name: "Password is require" };
+      if (!email) throw { name: 'email is required' };
+      if (!password) throw { name: 'Password is require' };
 
       const user = await User.findOne({
         where: { email },
       });
 
-<<<<<<< HEAD
-      if (!user) throw { name: "Invalid Email or Password" };
-=======
-      if (!user) throw { name: 'invalid_credentials<<' };
->>>>>>> map-rumah
+      if (!user) throw { name: 'Invalid Email or Password' };
 
       const validate = comparePassword(password, user.password);
 
@@ -44,22 +40,15 @@ class ControllerUser {
   }
 
   static async register(req, res, next) {
-<<<<<<< HEAD
-    // console.log("Masuk");
-    let { email, password } = req.body; // ini di ubah aja ya pak sesuai database username jdi email
-    try {
-      let user = await User.create({
-=======
     try {
       let { email, password, phoneNumber, name } = req.body;
       let dataUser = await User.create({
->>>>>>> map-rumah
         email,
         password,
         phoneNumber,
         name,
       });
-      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
       console.log(error);
       next(error);
@@ -96,11 +85,7 @@ class ControllerUser {
           hooks: false,
         }
       );
-<<<<<<< HEAD
-      res.status(201).json({ car, msg: "Car succefully created" });
-=======
       res.status(201).json({ car, msg: 'Car succefully created' });
->>>>>>> map-rumah
     } catch (error) {
       next(error);
     }
@@ -116,11 +101,7 @@ class ControllerUser {
         brand,
         type,
       });
-<<<<<<< HEAD
-      res.status(201).json({ car, msg: "Car succefully created" });
-=======
       res.status(201).json({ car, msg: 'Car succefully created' });
->>>>>>> map-rumah
     } catch (error) {
       next(error);
     }

@@ -1,16 +1,16 @@
-var CronJob = require("cron/lib/job");
-const { initScheduledJobs } = require("../cron/cron");
-var CronJob = require("cron/lib/job");
-const { task } = require("../cron/cron");
+var CronJob = require('cron/lib/job');
+const { initScheduledJobs } = require('../cron/cron');
+var CronJob = require('cron/lib/job');
+const { task } = require('../cron/cron');
 const {
   ParkingSlot,
   ParkingTransaction,
   User,
   Cars,
-  Mall
-} = require("../models/index");
-var cron = require("node-cron");
-const parkingtransaction = require("../models/parkingtransaction");
+  Mall,
+} = require('../models/index');
+var cron = require('node-cron');
+const parkingtransaction = require('../models/parkingtransaction');
 
 class Controller {
   ///controller untuk mendapatkan ticket sesuai dengan user yang sedang login
@@ -23,15 +23,17 @@ class Controller {
         },
         include: [
           {
-            model: User,
-            include: [Cars],
-          },
-        ],
-        include: [
-          {
             model: ParkingSlot,
             include: Mall,
           },
+          {
+            model: User,
+            include: Cars,
+          },
+        ],
+        order: [
+          ['id', 'DESC'],
+          ['createdAt', 'DESC'],
         ],
       });
       res.status(200).json(data);
@@ -43,18 +45,18 @@ class Controller {
 
   static async getTicket(req, res, next) {
     try {
-      
-      const { id } = req.params
-      const data = await ParkingTransaction.findByPk(id, {
-        attributes: ['id', 'createdAt'],
+      console.log('masuk');
+      const { id } = req.params;
+      const data = await ParkingTransaction.findOne({
+        attributes: ['id', 'createdAt', 'carIn', 'isExpired'],
         include: [
           {
-            model: User, 
-            attributes: ['email'],
+            model: User,
+            attributes: ['email', 'name', 'phoneNumber'],
             include: {
               model: Cars,
               where: {
-                isDefault: true
+                isDefault: true,
               },
               attributes: ['numberPlate', 'brand', 'type'],
             },
@@ -64,18 +66,20 @@ class Controller {
             attributes: ['spot'],
             include: {
               model: Mall,
-              attributes: ["name"]
-            }
-          }
-        ]
-      })
-  
-      res.status(200).json(data)
+              attributes: ['name', 'address', 'imgUrl'],
+            },
+          },
+        ],
+        where: {
+          id,
+        },
+      });
+
+      res.status(200).json(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-
 
   static async checkOut(req, res, next) {
     try {
@@ -102,6 +106,7 @@ class Controller {
           },
         ],
       });
+      console.log('masuk');
       res.status(200).json(data);
     } catch (error) {
       next(error);

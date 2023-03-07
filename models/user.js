@@ -58,8 +58,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      lat: DataTypes.STRING,
-      long: DataTypes.STRING,
       phoneNumber: DataTypes.TEXT,
       name: DataTypes.TEXT,
     },
