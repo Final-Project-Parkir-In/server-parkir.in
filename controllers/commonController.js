@@ -39,7 +39,6 @@ class Controller {
 
   static async getTicket(req, res, next) {
     try {
-      console.log("masuk");
       const { id } = req.params;
       const data = await ParkingTransaction.findOne({
         attributes: ["id", "createdAt", "carIn", "isExpired"],
@@ -75,37 +74,36 @@ class Controller {
     }
   }
 
-  static async checkOut(req, res, next) {
-    try {
-      const { ParkingTransactionId } = req.params;
-      const data = await ParkingTransaction.findByPk(ParkingTransactionId, {
-        attributes: ["id", "createdAt"],
-        include: [
-          {
-            model: User,
-            attributes: ["email", "name"],
-            include: [
-              {
-                model: Cars,
-                attributes: ["numberPlate", "brand", "type"],
-              },
-            ],
-          },
-          {
-            model: ParkingSlot,
-            attributes: ["spot"],
-            include: {
-              model: Mall,
-            },
-          },
-        ],
-      });
-      console.log("masuk");
-      res.status(200).json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // static async checkOut(req, res, next) {
+  //   try {
+  //     const { ParkingTransactionId } = req.params;
+  //     const data = await ParkingTransaction.findByPk(ParkingTransactionId, {
+  //       attributes: ["id", "createdAt"],
+  //       include: [
+  //         {
+  //           model: User,
+  //           attributes: ["email", "name"],
+  //           include: [
+  //             {
+  //               model: Cars,
+  //               attributes: ["numberPlate", "brand", "type"],
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           model: ParkingSlot,
+  //           attributes: ["spot"],
+  //           include: {
+  //             model: Mall,
+  //           },
+  //         },
+  //       ],
+  //     });
+  //     res.status(200).json(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
 
 module.exports = Controller;

@@ -10,15 +10,15 @@ const BookingController = require("../controllers/bookingController");
 const { authetication } = require("../middleware/auth");
 routes = express.Router();
 ///dari cakra
-
 routes.post("/login", ControllerUser.login);
 routes.post("/register", ControllerUser.register);
-routes.post("cars/:UserId", ControllerUser.addCar); // for adding first car when register
+routes.post("/cars/:UserId", ControllerUser.addCar); // for adding first car when register
 routes.use(authetication);
 routes.get("/malls", ControllerMall.getAllMalls);
 routes.get("/malls/:id", ControllerMall.getMallById);
 routes.get("/checkOut/:ParkingTransactionId", BookingController.checkOut);
-routes.get("/getAllTickets", Controller.getAllTickets);
+// routes.get("/getAllTickets", Controller.getAllTickets);
+routes.get("/getCars", ControllerUser.getCars);
 routes.post("/addSlot", ControllerSpot.addSlot);
 routes.get("/spots/:MallId", ControllerSpot.getAllSpots);
 
@@ -27,8 +27,8 @@ routes.post("/bookings/:ParkingId", BookingController.bookingSpot);
 routes.post("/checkIn/:ParkingTransactionId", BookingController.checkIn);
 routes.get("/tickets", Controller.getAllTickets); /// untuk mendapatkan semua ticket berdasarkan id
 routes.get("/tickets/:id", Controller.getTicket); ///untuk mendapatkan detail ticket datanya => ticket, user, dan mobil dengan status default
-routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
-routes.get("/checkOut/:ParkingTransactionId", Controller.checkOut);
+// routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
+// routes.get("/checkOut/:ParkingTransactionId", Controller.checkOut);
 
 routes.patch("/changeDefaultCar/:carId", ControllerUser.changeDefaultCar); ///mengirim car id yang mau diganti statusnya
 routes.post("/addSecondCar", ControllerUser.addSecondCar); // for adding second car after register done

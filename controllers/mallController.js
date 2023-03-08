@@ -1,4 +1,3 @@
-const geolib = require("geolib");
 const { Mall, ParkingSlot } = require("../models/index.js");
 const geolib = require("geolib");
 class ControllerMall {
@@ -15,7 +14,8 @@ class ControllerMall {
       const allMall = await Mall.findAll(option);
       res.status(200).json(allMall);
     } catch (err) {
-      res.status(500).json(err);
+      // res.status(500).json(err);
+      next(err);
     }
   }
 
@@ -35,20 +35,20 @@ class ControllerMall {
     }
   }
 
-  static async getParkingSlots(req, res, next) {
-    try {
-      const { MallId } = req.params;
-      const data = await ParkingSlot.findAll({
-        where: {
-          MallId,
-        },
-      });
-      if (data.length === 0) throw { name: "slot parking not found" };
-      res.status(200).json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // static async getParkingSlots(req, res, next) {
+  //   try {
+  //     const { MallId } = req.params;
+  //     const data = await ParkingSlot.findAll({
+  //       where: {
+  //         MallId,
+  //       },
+  //     });
+  //     if (data.length === 0) throw { name: "slot parking not found" };
+  //     res.status(200).json(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   static async getClosestMalls(req, res, next) {
     try {

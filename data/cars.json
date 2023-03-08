@@ -1,26 +1,26 @@
 [
-    {
-        "numberPlate" : "b 123 abc",
-        "brand" : "toyoti",
-        "type" : "supri",
-        "UserId" : 1
-    },
-    {
-        "numberPlate" : "b 123 bda",
-        "brand" : "beemwi",
-        "type" : "l300",
-        "UserId" : 2
-    },
-    {
-        "numberPlate" : "b 123 bbb",
-        "brand" : "hondi",
-        "type" : "jizz",
-        "UserId" : 3
-    },
-    {
-        "numberPlate" : "b 123 ngn",
-        "brand" : "mutsubisho",
-        "type" : "fushi",
-        "UserId" : 4
-    }
+  {
+    "numberPlate": "b 123 abc",
+    "brand": "toyoti",
+    "type": "supri",
+    "UserId": 1
+  },
+  {
+    "numberPlate": "b 123 bda",
+    "brand": "beemwi",
+    "type": "l300",
+    "UserId": 2
+  },
+  {
+    "numberPlate": "b 123 bbb",
+    "brand": "hondi",
+    "type": "jizz",
+    "UserId": 3
+  },
+  {
+    "numberPlate": "b 123 ngn",
+    "brand": "mutsubisho",
+    "type": "fushi",
+    "UserId": 4
+  }
 ]
