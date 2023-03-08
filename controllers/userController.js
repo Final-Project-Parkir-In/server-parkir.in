@@ -49,9 +49,7 @@ class ControllerUser {
         name,
       });
       res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
-      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -88,6 +86,7 @@ class ControllerUser {
       );
       res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -102,7 +101,6 @@ class ControllerUser {
         brand,
         type,
       });
-
       res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
       next(error);
@@ -134,7 +132,7 @@ class ControllerUser {
           },
         }
       );
-      res.status(200).json("Default car has been changed");
+      res.status(200).json({ name: "Default car has been changed" });
     } catch (error) {
       next(error);
     }

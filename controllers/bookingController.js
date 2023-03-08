@@ -37,9 +37,6 @@ class BookingController {
       if (!checkSlot.isAvailable) {
         throw { msg: "udah booking" };
       }
-      if (!checkSlot.isAvailable) {
-        throw { msg: "udah booking" };
-      }
       //membuat transaksi
       const ticket = await ParkingTransaction.create({
         UserId,
@@ -116,8 +113,7 @@ class BookingController {
         message: "car checked in parking spot",
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+      next(err);
     }
   }
 
@@ -145,8 +141,8 @@ class BookingController {
       const price = hours * transaction.ParkingSlot.priceOfSpot;
       // on production dont place the server key he
       // dont forget add ":" in the end of the string
-      
-      const serverKey = 'SB-Mid-server-fAmCO4IJHoOH7lQKN5iwlVmQ:';
+
+      const serverKey = "SB-Mid-server-fAmCO4IJHoOH7lQKN5iwlVmQ:";
 
       const base64Key = base64.encode(serverKey);
       const orderID =
@@ -171,17 +167,15 @@ class BookingController {
           secure: true,
         },
         customer_details: {
-
           email: transaction.User.email,
           phone: transaction.User.phoneNumber,
           first_name: transaction.User.name,
           // last_name: transaction.User.name,
           // first_name: 'uding',
-          last_name: '',
-
+          last_name: "",
         },
       };
-      console.log(transaction.User, '<===== uhui');
+      console.log(transaction.User, "<===== uhui");
       const response = await fetch(url, {
         method: "POST",
         headers: {

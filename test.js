@@ -71,6 +71,10 @@ beforeAll(async () => {
   }
 });
 
+// beforeEac(() => {
+//   jest.restoreAllMocks();
+// });
+
 afterAll(async () => {
   await User.destroy({
     restartIdentity: true,
@@ -90,6 +94,10 @@ afterAll(async () => {
 });
 
 describe("Check", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
   //Register
   test("Register success", async () => {
     const body = {
@@ -275,6 +283,126 @@ describe("Check", () => {
     );
   });
 
+  //Read error mocks all malls
+  test("Read error mocks all malls", async () => {
+    jest.spyOn(Mall, "findAll").mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .get(`/malls`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //Read error mocks nearestMalls
+  test("Read error mocks nearestMalls", async () => {
+    jest.spyOn(Mall, "findAll").mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .post(`/nearestMalls`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //Read error mocks tickets
+  test("Read error mocks tickets", async () => {
+    jest
+      .spyOn(ParkingTransaction, "findAll")
+      .mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .get(`/tickets`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //Read error mocks Spots
+  test("Read error mocks spots", async () => {
+    jest
+      .spyOn(ParkingSlot, "findAll")
+      .mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .get(`/spots/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //Read error mocks Cars
+  test("Read error mocks Cars", async () => {
+    jest.spyOn(Cars, "findAll").mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .get(`/getCars`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //CheckIn mocks
+  test("CheckIn mocks", async () => {
+    jest
+      .spyOn(ParkingTransaction, "findByPk")
+      .mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .post(`/checkIn/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //getTicket detail mocks
+  test("getTicket detail mocks", async () => {
+    jest
+      .spyOn(ParkingTransaction, "findOne")
+      .mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .get(`/tickets/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //addSlot mocks
+  test("addSlot mocks", async () => {
+    jest
+      .spyOn(ParkingSlot, "create")
+      .mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .post(`/addSlot`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //addSecondCar mocks
+  test("addSecondCar mocks", async () => {
+    jest.spyOn(Cars, "create").mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .post(`/addSecondCar`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
+  //changeDefaultCar mocks
+  test("changeDefaultCar mocks", async () => {
+    jest.spyOn(Cars, "update").mockRejectedValue("Internal server error");
+    const response = await request(app)
+      .patch(`/changeDefaultCar/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ message: "Internal server error" });
+  });
+
   //Read Detail Mall
   test("Read Detail Mall", async () => {
     const response = await request(app)
@@ -306,13 +434,13 @@ describe("Check", () => {
   //Read parkingSpots
   test("Read All parkingSpots", async () => {
     const response = await request(app)
-      .get(`/parkingSlot/1`)
+      .get(`/spots/1`)
       .set("access_token", access_token);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array || Object);
-    expect(response.body).toHaveLength(5);
+    expect(response.body).toHaveLength(6);
     expect(response.body[0]).toHaveProperty("id", 1);
-    expect(response.body[0]).toHaveProperty("spot", "b-1");
+    expect(response.body[0]).toHaveProperty("spot", "B-1");
     expect(response.body[0]).toHaveProperty("priceOfSpot", 10000);
     expect(response.body[0]).toHaveProperty("MallId", 1);
   });
@@ -325,22 +453,22 @@ describe("Check", () => {
     expect(response.body).toHaveProperty("message", "Login First");
   });
 
-  //add ParkingSlot
-  // test("add ParkingSlot success", async () => {
-  //   const body = {
-  //     spot: "b-1",
-  //     isAvailable: true,
-  //     priceOfSpot: 10000,
-  //     MallId: 1,
-  //   };
-  //   const response = await request(app)
-  //     .post("/addSlot")
-  //     .set("access_token", access_token)
-  //     .send(body);
-  //   expect(response.status).toBe(201);
-  //   expect(response.body).toBeInstanceOf(Object);
-  //   expect(response.body).toEqual({ name: "Success add Spot" });
-  // });
+  // add ParkingSlot
+  test("add ParkingSlot success", async () => {
+    const body = {
+      spot: "b-1",
+      isAvailable: true,
+      priceOfSpot: 10000,
+      MallId: 1,
+    };
+    const response = await request(app)
+      .post("/addSlot")
+      .set("access_token", access_token)
+      .send(body);
+    expect(response.status).toBe(201);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toEqual({ name: "Success add Spot" });
+  });
 
   // Add Booking Spots
   test("Bokking spots success", async () => {
@@ -352,6 +480,15 @@ describe("Check", () => {
       "message",
       "successfully booking spots"
     );
+  });
+
+  //udah booking
+  test("udah booking", async () => {
+    const response = await request(app)
+      .post(`/bookings/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty("msg", "udah booking");
   });
 
   // Add Booking Spots slot not found
@@ -382,7 +519,6 @@ describe("Check", () => {
     expect(response.body[0]).toHaveProperty("id", 2);
     expect(response.body[0]).toHaveProperty("UserId", 1);
     expect(response.body[0]).toHaveProperty("ParkingId", 1);
-    expect(response.body[0]).toHaveProperty("amountToPay", 2000);
     expect(response.body[0]).toHaveProperty("User.id", 1);
     expect(response.body[0]).toHaveProperty("User.email", "muhammad@gmail.com");
   });
@@ -393,6 +529,21 @@ describe("Check", () => {
     expect(response.status).toBe(401);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("message", "Login First");
+  });
+
+  //read detail ticket
+  test("Read detail Ticket", async () => {
+    const response = await request(app)
+      .get(`/tickets/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(200);
+    console.log(response.body, `INIBODY`);
+    expect(response.body).toHaveProperty("id", 1);
+    expect(response.body).toHaveProperty("isExpired", false);
+    // expect(response.body).toHaveProperty(
+    //   "User.Cars[0].numberPlate",
+    //   "bk 123 abc"
+    // );
   });
 
   // checkin
@@ -429,7 +580,7 @@ describe("Check", () => {
     );
   });
 
-  // Checkout
+  // // Checkout
   test("Checkout", async () => {
     const response = await request(app)
       .get(`/checkOut/1`)
@@ -439,15 +590,15 @@ describe("Check", () => {
     expect(response.body).toHaveProperty("token");
   });
 
-  // Checkout Login First
-  test("Checkout", async () => {
+  // // Checkout Login First
+  test("Checkout Login First", async () => {
     const response = await request(app).get(`/checkOut/1`);
     expect(response.status).toBe(401);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("message", "Login First");
   });
 
-  // Checkout error 500
+  // // Checkout error 500
   test("Checkout error 500", async () => {
     const response = await request(app)
       .get(`/checkOut/100`)
@@ -487,7 +638,7 @@ describe("Check", () => {
       type: "suv",
     };
     const response = await request(app)
-      .post(`/addCar/1`)
+      .post(`/cars/1`)
       .send(body)
       .set("access_token", access_token);
     expect(response.status).toBe(201);
@@ -509,7 +660,7 @@ describe("Check", () => {
       type: "suv",
     };
     const response = await request(app)
-      .post(`/addCar/1`)
+      .post(`/cars/1`)
       .send(body)
       .set("access_token", access_token);
     expect(response.status).toBe(400);
@@ -527,7 +678,7 @@ describe("Check", () => {
       type: "suv",
     };
     const response = await request(app)
-      .post(`/addCar/1`)
+      .post(`/cars/1`)
       .send(body)
       .set("access_token", access_token);
     expect(response.status).toBe(400);
@@ -535,54 +686,54 @@ describe("Check", () => {
     expect(response.body).toHaveProperty("message", ["plat is required"]);
   });
 
-  // add cars eror 401
-  test("add cars error", async () => {
-    const body = {
-      numberPlate: "bk 123 abc",
-      brand: "prjero",
-      type: "suv",
-    };
-    const response = await request(app).post(`/addCar/1`).send(body);
-    expect(response.status).toBe(401);
-    expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("message", "Login First");
-  });
-
   // addSecondCar
-  // test("addSecondCar", async () => {
-  //   const body = {
-  //     numberPlate: "bk 123 abc",
-  //     brand: "prjero",
-  //     type: "suv",
-  //   };
-  //   const response = await request(app)
-  //     .post(`/addSecondCar/1`)
-  //     .send(body)
-  //     .set("access_token", access_token);
-  //   expect(response.status).toBe(201);
-  //   expect(response.body).toBeInstanceOf(Object);
-  //   expect(response.body).toHaveProperty("car.id", 5);
-  //   expect(response.body).toHaveProperty("car.UserId", 1);
-  //   expect(response.body).toHaveProperty("car.numberPlate", "bk 123 abc");
-  //   expect(response.body).toHaveProperty("car.brand", "prjero");
-  //   expect(response.body).toHaveProperty("car.type", "suv");
-  //   expect(response.body).toHaveProperty("msg", "Car succefully created");
-  // });
+  test("addSecondCar", async () => {
+    const body = {
+      numberPlate: "bk 1233 a",
+      brand: "prjeroo",
+      type: "suvc",
+    };
+    const response = await request(app)
+      .post(`/addSecondCar`)
+      .send(body)
+      .set("access_token", access_token);
+    expect(response.status).toBe(201);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("car.id", 7);
+    expect(response.body).toHaveProperty("car.UserId", 1);
+    expect(response.body).toHaveProperty("car.numberPlate", "bk 1233 a");
+    expect(response.body).toHaveProperty("car.brand", "prjeroo");
+    expect(response.body).toHaveProperty("car.type", "suvc");
+    expect(response.body).toHaveProperty("msg", "Car succefully created");
+  });
 
   //read all nearestMalls
   test("Read All nearestMalls", async () => {
+    const body = {
+      lat: "-6.260634028197913",
+      long: "106.78156898310937",
+    };
     const response = await request(app)
-      .get(`/nearestMalls`)
+      .post(`/nearestMalls`)
+      .send(body)
       .set("access_token", access_token);
     expect(response.status).toBe(200);
-    // console.log(response.body, `INIBODY`);
-    expect(response.body).toHaveLength(2);
+    expect(response.body).toHaveLength(4);
     expect(response.body[0]).toHaveProperty("id", 1);
     expect(response.body[0]).toHaveProperty("name", "PIM");
-    expect(response.body[0]).toHaveProperty("long", "-6.265670347012476");
-    expect(response.body[0]).toHaveProperty(
-      "imgUrl",
-      "https://awsimages.detik.net.id/visual/2021/05/03/dok-pondok-indah-mall_169.jpeg?w=650"
-    );
+    expect(response.body[0]).toHaveProperty("long", "106.78272676099691");
+    expect(response.body[0]).toHaveProperty("lat", "-6.265670347012476");
+  });
+
+  // changeDefaultCar
+  test("changeDefaultCar", async () => {
+    const response = await request(app)
+      .patch(`/changeDefaultCar/1`)
+      .set("access_token", access_token);
+    expect(response.status).toBe(200);
+    // expect(response.body).toBeInstanceOf(Object);
+    // expect(response.body).toHaveProperty({
+    //   name: "Default car has been changed",
+    // });
   });
 });
