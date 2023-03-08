@@ -1,56 +1,56 @@
 [
     {
         "name": "PIM",
-        "address": "Jakarta Selatan",
+        "address": "Jl. Metro Pondok Indah Kav. IV/TA Kebayoran Lama Pondok Pinang RT.1, RT.1/RW.16",
         "lat": "-6.265670347012476",
         "long": "106.78272676099691",
         "imgUrl": "https://awsimages.detik.net.id/visual/2021/05/03/dok-pondok-indah-mall_169.jpeg?w=650"
     },
     {
         "name": "PIK Avenue",
-        "address": "Jakarta Utara",
+        "address": "Pantai Indah Kapuk St Boulevard, Kamal Muara, Penjaringan, North Jakarta City, Jakarta 14470",
         "lat": "-6.109192391408914",
         "long": "106.74035112660029",
         "imgUrl": "https://cdn2.pikavenue.com/wp-content/uploads/2020/11/1280px-PIK_Avenue_tampak_depan.jpg"
     },
     {
         "name": "Gandaria City Mall",
-        "address": "Jakarta Selatan",
+        "address": "Jl. Arteri Pd. Indah, RT.10/RW.6, Kby. Lama Utara, Kec. Kby. Lama, Kota Jakarta Selatan",
         "lat": "-6.243692653091513",
         "long": "106.78365769517497",
         "imgUrl": "https://ringroadcitywalks.com/home/images/slide/7.jpg"
     },
     {
         "name": "Blok M Square",
-        "address": "Jakarta Selatan",
+        "address": "Jl. Melawai 5, RT.3/RW.1, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan",
         "lat": "-6.244172420225307",
         "long": "106.80067187790479",
         "imgUrl": "https://fastly.4sqi.net/img/general/600x600/2hn_jMUZ38R8XFIo7Vkv_iYa0QZvzwpX6ljCHnQDq5k.jpg"
     },
     {
         "name": "The Darmawangsa Square",
-        "address": "Jakarta Selatan",
+        "address": "Jl. Darmawangsa VI, RT.5/RW.1, Pulo, Kec. Kby. Baru, Kota Jakarta Selatan",
         "lat": "-6.252362743996126",
         "long": "106.80123127667105",
         "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzDPb1KnvP9rB8tj-jYJv449vpzgCtjCL4vg&usqp=CAU"
     },
     {
         "name": "Kota Kasablanka",
-        "address": "Jakarta Selatan",
+        "address": "Jl. Casablanca Raya Kav. 88, Menteng Dalam, Kec. Tebet, Daerah Khusus Ibukota Jakarta 12870",
         "lat": "-6.222592347101671",
         "long": "106.84280947002155",
         "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBtdMhKblEiHruKJ3ujtczmhmttShB20EEBA&usqp=CAU"
     },
     {
         "name": "Paris Van Java",
-        "address": "Kota Bandung",
+        "address": "Jl. Sukajadi No.131-139, Cipedes, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162",
         "lat": "-6.888753968158206",
         "long": "107.59602996810686",
         "imgUrl": "https://dbijapkm3o6fj.cloudfront.net/resources/1730,1004,1,6,4,0,600,450/-4602-/20170222212832/mall-paris-van-java.jpeg"
     },
     {
         "name": "Mall WTC Batanghari",
-        "address": "Kota Jambi",
+        "address": "Jl. Sultan Thaha No.17, Ps. Jambi, Kec. Ps. Jambi, Kota Jambi, Jambi 36123",
         "lat": "-1.588600936218604",
         "long": "103.6158732494427",
         "imgUrl": "https://lh5.googleusercontent.com/p/AF1QipO1B4DiPnrLJAgDW645Ct20_lGcj4zGxRVfFCA=w426-h240-k-no"
