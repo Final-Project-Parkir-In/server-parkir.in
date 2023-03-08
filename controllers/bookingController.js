@@ -85,8 +85,7 @@ class BookingController {
         .status(201)
         .json({ message: "successfully booking spots", id: ticket.id });
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+      next(err)
     }
   }
 
@@ -116,8 +115,7 @@ class BookingController {
         message: "car checked in parking spot",
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+      next(err)
     }
   }
 
@@ -195,9 +193,7 @@ class BookingController {
       const redirToken = await response.json();
       res.status(200).json(redirToken);
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-      // next(err);
+      next(err);
     }
   }
 }

@@ -35,7 +35,6 @@ class ControllerUser {
         username: user.name,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
