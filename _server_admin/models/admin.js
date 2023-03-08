@@ -25,21 +25,37 @@ class Admin {
     }
 
     static async findByEmail(email) {
-        console.log(email, '<<<<< dari models');
+        // console.log(email, '<<<<< dari models');
         return this.getCollections().findOne({ email: email })
 
     }
 
     static async findByPk(objectId) {
-        return this.getCollections().findOne({
+
+        const data = await this.getCollections().findOne({
             _id: new ObjectId(objectId),
         })
+        // console.log(data, '<<<<<');
+        if (data === null) {
+            console.log('masuk aaaaaaaaaaaaaa');
+            return "salah id"
+        } else {
+            console.log('masuk bbbbbbbbbbbbbbbbbb');
+
+            return data
+        }
     }
 
     static async deleteAdmin(id) {
-        return this.getCollections().deleteOne({
+
+        const data = await this.getCollections().deleteOne({
             _id: new ObjectId(id)
         })
+        if (!data) {
+            // console.log('masuk aaaaaaaaaaaaaa');
+            return "salah id"
+        }
+        return data
     }
 
     static async update(find, data) {
@@ -54,27 +70,27 @@ class Admin {
 
         const result = await this.getCollections().updateOne(filter, update);
 
-        console.log(`${result.matchedCount} document(s) matched the filter criteria.`);
-        console.log(`${result.modifiedCount} document(s) were updated.`);
+        // console.log(`${result.matchedCount} document(s) matched the filter criteria.`);
+        // console.log(`${result.modifiedCount} document(s) were updated.`);
         return result
     }
 
     // sandbox >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    static async sandbox(find, data) {
-        console.log(data.userName, '<<<< data update');
+    // static async sandbox(find, data) {
+    //     console.log(data.userName, '<<<< data update');
 
-        const filter = { userName: find }; // find document(s) with firstName = 'John'
-        const update = {
-            $set: {
-                userName: data.userName,
-                email: data.email,
-                password: data.password
-            }
-        }; // update the lastName field to 'Doe'
+    //     const filter = { userName: find }; // find document(s) with firstName = 'John'
+    //     const update = {
+    //         $set: {
+    //             userName: data.userName,
+    //             email: data.email,
+    //             password: data.password
+    //         }
+    //     }; // update the lastName field to 'Doe'
 
-        const result = await this.getCollections().updateOne(filter, update);
-        return result
-    }
+    //     const result = await this.getCollections().updateOne(filter, update);
+    //     return result
+    // }
 
 }
 
