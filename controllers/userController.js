@@ -34,7 +34,6 @@ class ControllerUser {
         username: user.name,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
@@ -61,6 +60,7 @@ class ControllerUser {
         where: {
           UserId,
         },
+        order: [['updatedAt', 'DESC']]
       });
       res.status(200).json(cars);
     } catch (error) {

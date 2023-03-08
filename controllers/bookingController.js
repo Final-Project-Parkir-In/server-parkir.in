@@ -82,8 +82,7 @@ class BookingController {
         .status(201)
         .json({ message: "successfully booking spots", id: ticket.id });
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+      next(err)
     }
   }
 
@@ -113,7 +112,7 @@ class BookingController {
         message: "car checked in parking spot",
       });
     } catch (err) {
-      next(err);
+      next(err)
     }
   }
 
@@ -130,13 +129,13 @@ class BookingController {
       });
 
       // bandingkan waktu saat cek out dan cek in
-      const checkInTime = new Date(transaction.carIn);
-      const checkOutTime = new Date();
-      const diffInMs = Math.ceil(
-        Math.abs(checkInTime.getTime() - checkOutTime.getTime()) / 3600000
-      ); // Difference in milliseconds
-      // console.log(diffInMs);
-      const hours = Math.ceil(diffInMs / (1000 * 60 * 60)); // Difference in hours
+      const checkInTime = new Date(transaction.carIn).getHours()
+      const checkOutTime = new Date().getHours()
+      // const diffInMs = Math.ceil(
+      //   Math.abs(checkInTime.getTime() - checkOutTime.getTime()) / 3600000
+      // ); // Difference in milliseconds
+      // // console.log(diffInMs);
+      const hours = Math.ceil(checkOutTime - checkInTime); // Difference in hours
       //harga yang harus di bayar
       const price = hours * transaction.ParkingSlot.priceOfSpot;
       // on production dont place the server key he
@@ -189,9 +188,7 @@ class BookingController {
       const redirToken = await response.json();
       res.status(200).json(redirToken);
     } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-      // next(err);
+      next(err);
     }
   }
 }
