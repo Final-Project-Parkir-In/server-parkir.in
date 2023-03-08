@@ -5,6 +5,8 @@ const ControllerMall = require('../controllers/mallController');
 const ControllerSpot = require('../controllers/spotController');
 const BookingController = require('../controllers/bookingController');
 const cron = require('node-cron');
+const { authetication } = require('../middleware/auth');
+
 
 routes = express.Router()
 
@@ -19,7 +21,7 @@ routes.get('/checkOut/:ParkingTransactionId', BookingController.checkOut);
 routes.get('/getAllTickets', Controller.getAllTickets);
 routes.post('/getAllTickets', Controller.getAllTickets); //tambahan
 routes.post('/addSlot', ControllerSpot.addSlot); //tambahan
-routes.post('/checkIn/:id', Controller.checkIn); // tambahan
+// routes.post('/checkIn/:id', Controller.checkIn); // tambahan
 routes.get('/spots/:MallId', ControllerSpot.getAllSpots);
 // when user booking
 
