@@ -1,7 +1,6 @@
 const app = require('../app')
 const request = require('supertest');
 let admin_id
-const sinon = require('sinon');
 
 
 

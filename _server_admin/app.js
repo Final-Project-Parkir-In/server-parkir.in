@@ -27,3 +27,4 @@ app.use(errorHandler);
         console.log(`Failed to connect to mongodb`);
     }
 })();
+module.exports = app
