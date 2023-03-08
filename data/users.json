@@ -1,18 +1,26 @@
 [
-    {
-        "email": "muhammad@gmail.com",
-        "password": "qwerty"
-    },
-    {
-        "email": "yamin@gmail.com",
-        "password": "qwerty"
-    },
-    {
-        "email": "fahmi@gmail.com",
-        "password": "qwerty"
-    },
-    {
-        "email": "bismsa@gmail.com",
-        "password": "qwerty"
-    }
+  {
+    "email": "muhammad@gmail.com",
+    "password": "qwerty",
+    "name": "muhammad",
+    "phoneNumber": "0812345678"
+  },
+  {
+    "email": "yamin@gmail.com",
+    "password": "qwerty",
+    "name": "yamin",
+    "phoneNumber": "0812345678"
+  },
+  {
+    "email": "fahmi@gmail.com",
+    "password": "qwerty",
+    "name": "fahmi",
+    "phoneNumber": "0812345678"
+  },
+  {
+    "email": "bisma@gmail.com",
+    "password": "qwerty",
+    "name": "bisma",
+    "phoneNumber": "0812345678"
+  }
 ]

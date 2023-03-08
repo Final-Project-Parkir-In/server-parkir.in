@@ -1,10 +1,9 @@
-const { comparePassword } = require('../helper/bcrypt');
-const { createToken } = require('../helper/jwt');
-const { User, Cars } = require('../models');
+const { comparePassword } = require("../helper/bcrypt");
+const { createToken } = require("../helper/jwt");
+const { User, Cars } = require("../models");
 
 class ControllerUser {
   static async login(req, res, next) {
-    // console.log("Masuk Login");
     try {
       const { email, password } = req.body;
 
@@ -19,11 +18,10 @@ class ControllerUser {
 
       const validate = comparePassword(password, user.password);
 
-      if (!validate) throw { name: 'invalid_credentials' };
+      if (!validate) throw { name: "invalid_credentials" };
 
       const payload = {
         id: user.id,
-        username: user.username,
         email: user.email,
       };
 
@@ -32,9 +30,10 @@ class ControllerUser {
       res.status(200).json({
         access_token,
         email: payload.email,
+        phoneNumber: user.phoneNumber,
+        username: user.name,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
@@ -48,9 +47,8 @@ class ControllerUser {
         phoneNumber,
         name,
       });
-      res.status(201).json({ id: user.id, email: user.email }); // ini di ubah supaya password gk kelihatan
+      res.status(201).json({ id: dataUser.id, email: dataUser.email }); // ini di ubah supaya password gk kelihatan
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -62,6 +60,7 @@ class ControllerUser {
         where: {
           UserId,
         },
+        order: [['updatedAt', 'DESC']]
       });
       res.status(200).json(cars);
     } catch (error) {
@@ -71,7 +70,7 @@ class ControllerUser {
 
   static async addCar(req, res, next) {
     try {
-      const UserId = req.user.id;
+      const { UserId } = req.params;
       const { numberPlate, brand, type } = req.body;
       const car = await Cars.create(
         {
@@ -85,8 +84,9 @@ class ControllerUser {
           hooks: false,
         }
       );
-      res.status(201).json({ car, msg: 'Car succefully created' });
+      res.status(201).json({ car, msg: "Car succefully created" });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -101,7 +101,38 @@ class ControllerUser {
         brand,
         type,
       });
-      res.status(201).json({ car, msg: 'Car succefully created' });
+      res.status(201).json({ car, msg: "Car succefully created" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async changeDefaultCar(req, res, next) {
+    try {
+      const { carId } = req.params;
+      const UserId = req.user.id;
+
+      ///changging previous cars default status to false
+      await Cars.update(
+        { isDefault: false },
+        {
+          where: {
+            UserId,
+            isDefault: true,
+          },
+        }
+      );
+
+      //updating new car status
+      await Cars.update(
+        { isDefault: true },
+        {
+          where: {
+            id: carId,
+          },
+        }
+      );
+      res.status(200).json({ name: "Default car has been changed" });
     } catch (error) {
       next(error);
     }

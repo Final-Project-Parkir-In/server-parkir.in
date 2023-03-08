@@ -1,80 +1,176 @@
 [
   {
-    "spot": "b-1",
+    "spot": "B-1",
     "isAvailable": true,
     "priceOfSpot": 10000,
     "MallId": 1
   },
   {
-    "spot": "b-2",
+    "spot": "B-2",
     "isAvailable": true,
     "priceOfSpot": 10000,
     "MallId": 1
   },
   {
-    "spot": "b-3",
+    "spot": "B-3",
     "isAvailable": true,
     "priceOfSpot": 10000,
     "MallId": 1
   },
   {
-    "spot": "b-4",
+    "spot": "B-4",
     "isAvailable": true,
     "priceOfSpot": 10000,
     "MallId": 1
   },
   {
-    "spot": "b-5",
+    "spot": "B-5",
     "isAvailable": true,
     "priceOfSpot": 10000,
     "MallId": 1
   },
   {
-    "spot": "b-6",
+    "spot": "B-6",
     "isAvailable": true,
     "priceOfSpot": 10000,
+    "MallId": 1
+  },
+  {
+    "spot": "B-6",
+    "isAvailable": true,
+    "priceOfSpot": 15000,
     "MallId": 2
   },
   {
-    "spot": "b-7",
+    "spot": "B-7",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 15000,
     "MallId": 2
   },
   {
-    "spot": "b-8",
+    "spot": "B-8",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 15000,
     "MallId": 2
   },
   {
-    "spot": "b-9",
+    "spot": "B-9",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 15000,
     "MallId": 2
   },
   {
-    "spot": "b-10",
+    "spot": "B-10",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 15000,
+    "MallId": 2
+  },
+  {
+    "spot": "B-11",
+    "isAvailable": true,
+    "priceOfSpot": 15000,
+    "MallId": 2
+  },
+  {
+    "spot": "B-10",
+    "isAvailable": true,
+    "priceOfSpot": 17500,
     "MallId": 3
   },
   {
-    "spot": "b-11",
+    "spot": "B-11",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 17500,
     "MallId": 3
   },
   {
-    "spot": "b-12",
+    "spot": "B-12",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 17500,
     "MallId": 3
   },
   {
-    "spot": "b-13",
+    "spot": "B-13",
     "isAvailable": true,
-    "priceOfSpot": 10000,
+    "priceOfSpot": 17500,
     "MallId": 3
+  },
+  {
+    "spot": "B-14",
+    "isAvailable": true,
+    "priceOfSpot": 17500,
+    "MallId": 3
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 20000,
+    "MallId": 4
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
+  },
+  {
+    "spot": "B-15",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 5
   }
 ]
