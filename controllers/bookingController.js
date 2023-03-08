@@ -14,6 +14,7 @@ const {
   ParkingTransaction,
   User,
   Cars,
+  Mall
 } = require("../models/index");
 var cron = require("node-cron");
 const base64 = require("base-64");
@@ -125,7 +126,7 @@ class BookingController {
         where: {
           id: ParkingTransactionId,
         },
-        include: [ParkingSlot, User],
+        include: [{model:ParkingSlot,include:Mall}, User],
       });
 
       
@@ -155,7 +156,7 @@ class BookingController {
             id: "SPOT-ID-" + transaction.ParkingSlot.id,
             price: price,
             quantity: 1,
-            name: "Parking slot at Pondok Indah",
+            name: "Parking slot at " + transaction.ParkingSlot.Mall.name,
             category: "spot parking",
             merchant_name: "Merchant",
           },
