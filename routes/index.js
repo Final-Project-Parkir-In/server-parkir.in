@@ -31,7 +31,7 @@ routes.get("/tickets", Controller.getAllTickets); /// untuk mendapatkan semua ti
 routes.get("/tickets/:id", Controller.getTicket); ///untuk mendapatkan detail ticket datanya => ticket, user, dan mobil dengan status default
 routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
 
-routes.patch('/changeDefaultCar/:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
+routes.patch('/changeDefaultCargit /:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
 routes.post('/addSecondCar', ControllerUser.addSecondCar)// for adding second car after register done
 
 ///geolibfunc
