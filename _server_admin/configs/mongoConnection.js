@@ -25,7 +25,7 @@ const mongoConnect = async () => {
 
         return database;
     } catch (err) {
-        console.log(err, 'error dari ');
+        // console.log(err, 'error dari ');
         await client.close();
     }
 };

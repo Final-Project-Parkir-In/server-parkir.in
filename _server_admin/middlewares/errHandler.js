@@ -7,7 +7,7 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === "BSONError") {
     status = 404;
-    message = "Data not found";
+    message = "Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer";
   }else if (err.name === "Data not found") {
     status = 404;
     message = "Data not found";
