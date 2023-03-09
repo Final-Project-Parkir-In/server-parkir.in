@@ -33,7 +33,7 @@ routes.get("/tickets/:id", Controller.getTicket); ///untuk mendapatkan detail ti
 routes.get("/parkingSlot/:MallId", ControllerMall.getParkingSlots);
 
 
-routes.patch('/changeDefaultCargit /:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
+routes.patch('/changeDefaultCar/:carId', ControllerUser.changeDefaultCar) ///mengirim car id yang mau diganti statusnya
 routes.post('/addSecondCar', ControllerUser.addSecondCar)// for adding second car after register done
 
 ///geolibfunc
