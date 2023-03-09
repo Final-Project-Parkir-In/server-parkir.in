@@ -2,31 +2,37 @@
   {
     "email": "ahsan@gmail.com",
     "password": "qwerty",
-    "name": "ahsan",
+    "name": "Ahsan Al Fikri",
     "phoneNumber": "0812345678"
   },
   {
     "email": "samuel@gmail.com",
     "password": "qwerty",
-    "name": "samuel",
+    "name": "Samuel S",
     "phoneNumber": "0812345678"
   },
   {
     "email": "irfanr@gmail.com",
     "password": "qwerty",
-    "name": "irfan",
+    "name": "Ahmad Irfan A",
     "phoneNumber": "0812345678"
   },
   {
     "email": "dian@gmail.com",
     "password": "qwerty",
-    "name": "dian",
+    "name": "Dian Aditya",
     "phoneNumber": "0812345678"
   },
   {
     "email": "cakra@gmail.com",
     "password": "qwerty",
-    "name": "cakra",
+    "name": "Cakra Jonatan",
+    "phoneNumber": "0812345678"
+  },
+  {
+    "email": "bisma@gmail.com",
+    "password": "qwerty",
+    "name": "Gusti Bisman Taka",
     "phoneNumber": "0812345678"
   }
 ]

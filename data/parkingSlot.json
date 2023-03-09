@@ -172,5 +172,113 @@
     "isAvailable": true,
     "priceOfSpot": 25000,
     "MallId": 5
+  },
+  {
+    "spot": "A-07",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "A-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "A-09",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "A-10",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "A-11",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "A-12",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 6
+  },
+  {
+    "spot": "B-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "B-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "B-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "B-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "B-08",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "B-10",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 7
+  },
+  {
+    "spot": "C-53",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
+  },
+  {
+    "spot": "C-54",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
+  },
+  {
+    "spot": "C-55",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
+  },
+  {
+    "spot": "C-56",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
+  },
+  {
+    "spot": "C-57",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
+  },
+  {
+    "spot": "C-58",
+    "isAvailable": true,
+    "priceOfSpot": 25000,
+    "MallId": 8
   }
 ]

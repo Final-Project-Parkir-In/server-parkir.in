@@ -1,29 +1,29 @@
 [
   {
-    "numberPlate": "b 123 abc",
-    "brand": "toyoti",
-    "type": "supri",
+    "numberPlate": "B 123 ABC",
+    "brand": "Toyota",
+    "type": "Innova",
     "UserId": 1,
     "isDefault": true
   },
   {
-    "numberPlate": "b 123 bda",
-    "brand": "beemwi",
-    "type": "l300",
+    "numberPlate": "b 5576 CCA",
+    "brand": "BMW",
+    "type": "M3",
     "UserId": 2,
     "isDefault": true
   },
   {
-    "numberPlate": "b 123 bbb",
-    "brand": "hondi",
-    "type": "jizz",
+    "numberPlate": "B 123 ALC",
+    "brand": "Honda",
+    "type": "Freed",
     "UserId": 3,
     "isDefault": true
   },
   {
-    "numberPlate": "b 123 ngn",
-    "brand": "mutsubisho",
-    "type": "fushi",
+    "numberPlate": "D 123 NGA",
+    "brand": "Honda",
+    "type": "Jazz",
     "UserId": 4,
     "isDefault": true
   }
